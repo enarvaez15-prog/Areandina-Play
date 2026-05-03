@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Coloso Play | Streaming Universitario</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-area" id="logoLink" style="cursor: pointer;">
+    <img src="imagenes/Logo.png" alt="Areandina" class="logo-img">
+
+</div>
+
+            <div class="nav-menu">
+                <div class="nav-item">
+                    <a class="nav-link active">INICIO</a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link">FACULTADES ▼</a>
+                    <div class="dropdown-content">
+                        <a href="#">Ingeniería y Ciencias Básicas</a>
+                        <a href="#">Derecho y Ciencias Políticas</a>
+                        <a href="#">Ciencias Económicas, Administrativas y Contables</a>
+                        <a href="#">Ciencias de la Comunicación</a>
+                        <a href="#">Psicología</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link">GRADUACIONES</a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link">INNOVACIÓN</a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link">BIENESTAR</a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link">REALIDADES EXTENDIDAS</a>
+                </div>
+            </div>
+            <div class="right-icons">
+    <div class="search-wrapper">
+        <input type="text" id="searchInput" placeholder="🔍 Buscar videos..." class="search-input-header">
+        <div id="searchDropdown" class="search-dropdown"></div>
+    </div>
+    <button class="theme-toggle" id="themeToggle">
+    <span class="theme-icon">🌙</span>
+</button>
+</div>
+    </header>
+    
+
+    <!-- HERO CARRUSEL -->
+    <div class="hero-carousel" id="heroCarousel">
+        <div class="hero-slides" id="heroSlides">
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1920&h=600&fit=crop" alt="Graduación">
+                <div class="hero-overlay">
+                    <h2>🎓 Ceremonias de Graduación</h2>
+                    <p>Bogotá, Pereira, Valledupar y Virtuales</p>
+                    <button class="hero-btn" onclick="window.location.href='seccion.html?seccion=graduaciones'">Ver más →</button>
+                </div>
+            </div>
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1920&h=600&fit=crop" alt="Innovación">
+                <div class="hero-overlay">
+                    <h2>💡 Centro de Innovación</h2>
+                    <p>Capacitaciones Ceita - Parrilla 4.0</p>
+                    <button class="hero-btn" onclick="window.location.href='seccion.html?seccion=innovacion'">Ver más →</button>
+                </div>
+            </div>
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1920&h=600&fit=crop" alt="Realidades">
+                <div class="hero-overlay">
+                    <h2>🕶️ Realidades Extendidas</h2>
+                    <p>Espacios Virtuales - Contenidos educativos</p>
+                    <button class="hero-btn" onclick="window.location.href='seccion.html?seccion=realidades'">Ver más →</button>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-dots" id="heroDots"></div>
+    </div>
+
+    <!-- FILTROS DE BÚSQUEDA -->
+    <div class="filters-section">
+    <select class="filter-select" id="modalidad">
+        <option value="">Todas las modalidades ▼</option>
+        <option value="presencial">Presencial</option>
+        <option value="virtual">Virtual</option>
+        <option value="distancia">Distancia</option>
+    </select>
+    <select class="filter-select" id="tipoPrograma">
+        <option value="">Todos los tipos ▼</option>
+        <option value="pregrado">Pregrado</option>
+        <option value="posgrado">Posgrado</option>
+        <option value="especializacion">Especialización</option>
+        <option value="maestria">Maestría</option>
+    </select>
+    <select class="filter-select" id="sede">
+        <option value="">Todas las sedes ▼</option>
+        <option value="bogota">Bogotá</option>
+        <option value="pereira">Pereira</option>
+        <option value="valledupar">Valledupar</option>
+        <option value="virtual">Virtual</option>
+    </select>
+    <button class="search-btn" id="buscarEstudiosBtn">🔍 Buscar estudios</button>
+</div>
+
+    <!-- ===== SECCIÓN: FACULTADES ===== -->
+    <div class="section">
+        <div class="section-header">
+            <h2 class="section-title">🏛️ NUESTRAS FACULTADES</h2>
+        </div>
+        <div class="carousel-container" id="facultadesCarousel">
+            <div class="carousel-track" id="facultadesTrack"></div>
+        </div>
+    </div>
+
+    <!-- ===== SECCIÓN: CEREMONIAS DE GRADUACIÓN (vista previa) ===== -->
+    <div class="section">
+        <div class="section-header">
+            <h2 class="section-title">🎓 CEREMONIAS DE GRADUACIÓN</h2>
+            <a href="seccion.html?seccion=graduaciones" class="view-all">Ver todo →</a>
+        </div>
+        <div class="carousel-container" id="graduacionesCarousel">
+            <div class="carousel-track" id="graduacionesTrack"></div>
+        </div>
+    </div>
+
+    <!-- ===== SECCIÓN: CENTRO DE INNOVACIÓN (vista previa) ===== -->
+    <div class="section">
+        <div class="section-header">
+            <h2 class="section-title">💡 CENTRO DE INNOVACIÓN TECNOLÓGICA</h2>
+            <a href="seccion.html?seccion=innovacion" class="view-all">Ver todo →</a>
+        </div>
+        <div class="carousel-container" id="innovacionCarousel">
+            <div class="carousel-track" id="innovacionTrack"></div>
+        </div>
+    </div>
+
+    <!-- ===== SECCIÓN: REALIDADES EXTENDIDAS (vista previa) ===== -->
+    <div class="section">
+        <div class="section-header">
+            <h2 class="section-title">🕶️ REALIDADES EXTENDIDAS</h2>
+            <a href="seccion.html?seccion=realidades" class="view-all">Ver todo →</a>
+        </div>
+        <div class="carousel-container" id="realidadesCarousel">
+            <div class="carousel-track" id="realidadesTrack"></div>
+        </div>
+    </div>
+
+    <!-- ===== SECCIÓN: BIENESTAR UNIVERSITARIO (vista previa) ===== -->
+    <div class="section">
+        <div class="section-header">
+            <h2 class="section-title">❤️ BIENESTAR UNIVERSITARIO</h2>
+            <a href="seccion.html?seccion=bienestar" class="view-all">Ver todo →</a>
+        </div>
+        <div class="carousel-container" id="bienestarCarousel">
+            <div class="carousel-track" id="bienestarTrack"></div>
+        </div>
+    </div>
+
+    <!-- ACCESOS DIRECTOS Y ACREDITACIONES -->
+    <div class="info-grid">
+        <div class="info-card">
+            <h3 class="info-title">🔗 ACCESOS DIRECTOS</h3>
+            <ul class="accesos-lista">
+                <li><a href="https://campusvirtual.areandina.edu.co/" target="_blank">📚 Campus Virtual</a></li>
+                <li><a href="https://kactus.areandina.edu.co/" target="_blank">🐛 Kactus</a></li>
+                <li><a href="#" id="correoLink" target="_blank">✉️ Correo electrónico</a></li>
+                <li><a href="https://www.areandina.edu.co/servicios-al-estudiante/calendarios-academicos" target="_blank">📅 Calendarios Académicos</a></li>
+                <li><a href="https://servicios.areandina.edu.co/consultatuclase/" target="_blank">📖 Consulta tu clase</a></li>
+                <li><a href="https://www.areandina.edu.co/servicios-al-graduado/inscripcion-a-grados" target="_blank">🎓 Postulación a Grados</a></li>
+            </ul>
+        </div>
+        <div class="info-card">
+            <h3 class="info-title">🏆 ACREDITACIONES Y RECONOCIMIENTOS</h3>
+            <div class="acreditaciones">
+                <div class="acreditacion-item">✅ aice</div>
+                <div class="acreditacion-item">🏅 INVICTA BY EL QUADRA</div>
+                <div class="acreditacion-item">📜 EQAA</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REDES SOCIALES -->
+    <div class="redes-section">
+        <div class="isotipo-redes">A</div>
+        <div class="redes-sociales">
+            <a href="https://www.facebook.com/areandina/" target="_blank" class="red-social">f</a>
+            <a href="https://www.instagram.com/areandina/" target="_blank" class="red-social">in</a>
+            <a href="https://co.linkedin.com/school/fundacion-universitaria-del-area-andina/" target="_blank" class="red-social">in</a>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer-nuevo">
+        <div class="footer-info">
+            <p><strong>Correo de notificaciones judiciales:</strong> notificacionjudicial@areandina.edu.co</p>
+            <p>Fundación Universitaria del Área Andina, Institución de Educación Superior sujeta a inspección y vigilancia por el Ministerio de Educación Nacional.</p>
+        </div>
+        <div class="footer-columnas">
+            <div class="footer-col">
+                <h4>📞 CANALES DE ATENCIÓN</h4>
+                <p>Puntos de atención</p>
+                <p>📱 Pregúntale a Nina a través de WhatsApp</p>
+            </div>
+            <div class="footer-col">
+                <h4>📍 SEDES</h4>
+                <p><strong>Bogotá:</strong> +57 (601) 7449191</p>
+                <p><strong>Pereira:</strong> +57 (606) 3401516</p>
+                <p><strong>Valledupar:</strong> +57 (605) 5897879</p>
+                <p><strong>Línea gratuita:</strong> 01 8000 18 0099</p>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2024 Coloso Play - Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <!-- MODAL DE VIDEO -->
+    <div id="videoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:2000; align-items:center; justify-content:center;">
+        <div style="position:relative; width:90%; max-width:1000px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <h3 id="videoTitle" style="color:white;">Reproduciendo video</h3>
+                <button id="closeModal" style="background:#e6007e; color:white; border:none; padding:8px 20px; border-radius:30px; cursor:pointer;">✕ Cerrar</button>
+            </div>
+            <iframe id="videoIframe" width="100%" height="400px" style="border:none; border-radius:16px;" allowfullscreen></iframe>
+            <button id="fullscreenBtn" style="position:absolute; bottom:-50px; right:0; background:#7fb536; color:white; border:none; padding:8px 20px; border-radius:30px; cursor:pointer;">⛶ Pantalla completa</button>
+        </div>
+    </div>
+
+    <!-- RADIO MINI PLAYER -->
+    <div class="radio-mini-player" id="radioMiniPlayer">
+        <div class="radio-mini-header">
+            <span class="radio-mini-live"></span>
+            <span class="radio-mini-title">Areandina Radio</span>
+        </div>
+        <div class="radio-mini-info">
+            <div class="radio-mini-wave" id="radioMiniWave">
+                <span></span><span></span><span></span>
+            </div>
+            <p class="radio-mini-song" id="radioMiniSong">TOCANDO AHORA</p>
+        </div>
+        <div class="radio-mini-controls">
+            <div class="radio-mini-volume">
+                <button class="radio-mini-volume-btn" id="volumeBtn">🔊</button>
+                <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="70">
+            </div>
+            <button class="radio-mini-btn" id="playPauseMiniBtn">▶</button>
+        </div>
+        <audio id="radioMiniAudio" style="display: none;" preload="none"></audio>
+    </div>
+
+    <!-- MASCOTA INTERACTIVA -->
+<div id="mascota" style="position: fixed; bottom: 20px; right: 20px; width: 70px; cursor: pointer; z-index: 1000;">
+    <img src="imagenes/ramiro.png" alt="Mascota" style="width: 100%; border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+    <div id="mensajeMascota" style="position: absolute; bottom: 80px; right: 0; background: #7fb536; color: white; padding: 5px 10px; border-radius: 20px; font-size: 11px; display: none; white-space: nowrap;">¡Hola! 👋</div>
+</div>
+
+    <script src="js/main.js"></script>
+    <style>
+.modal-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0,0,0,0.8); 
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 9999;
+}
+
+
+.modal-contenedor {
+position: relative;
+max-width: 90%;
+max-height: 90%;
+}
+
+
+.modal-contenedor img {
+width: 100%;
+height: auto;
+display: block;
+border-radius: 10px;
+box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+</style>
+</head>
+<body>
+<div id="miModal" class="modal-overlay">
+<div class="modal-contenedor">
+<a href="https://www.areandina.edu.co/servicios-administrativos/centro-de-recursos-educativos-0" target="_blank">
+<img src="imagenes/banner.png" alt="Banner">
+</a>
+
+
+<script>
+
+function cerrarModal() {
+document.getElementById('miModal').style.display = 'none';
+}
+
+document.getElementById('miModal').addEventListener('click', function(event) {
+
+if (event.target === this) {
+cerrarModal();
+}
+});
+</script>
+    
+</body>
+</html>

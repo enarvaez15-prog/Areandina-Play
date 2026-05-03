@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coloso Play | Canal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .canal-header {
+            margin-top: 80px;
+            background: linear-gradient(135deg, var(--verde-areandina) 0%, var(--verde-oscuro) 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+        .canal-header h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .canal-header p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+        }
+        .canal-banner {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .canal-info {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+            border-bottom: 1px solid var(--gris-borde);
+        }
+        .canal-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            object-fit: cover;
+        }
+        .canal-descripcion {
+            flex: 1;
+        }
+        .canal-descripcion h2 {
+            color: var(--verde-areandina);
+            margin-bottom: 0.5rem;
+        }
+        .canal-stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            color: #666;
+            font-size: 0.85rem;
+            flex-wrap: wrap;
+        }
+        .videos-grid-canal {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .video-canal-card {
+            background: var(--blanco);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid var(--gris-borde);
+        }
+        .video-canal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-color: var(--verde-areandina);
+        }
+        .video-canal-thumb {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        .video-canal-info {
+            padding: 1rem;
+        }
+        .video-canal-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        .video-canal-meta {
+            font-size: 0.75rem;
+            color: var(--verde-areandina);
+        }
+        .seccion-mini-carrusel {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .seccion-mini-carrusel h3 {
+            color: var(--negro-areandina);
+            margin-bottom: 1rem;
+        }
+        .mini-track {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+        }
+        .mini-card {
+            min-width: 200px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid var(--gris-borde);
+        }
+        .mini-card:hover {
+            transform: scale(1.02);
+            border-color: var(--verde-areandina);
+        }
+        .mini-thumb {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+        .mini-info {
+            padding: 0.5rem;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .volver-btn {
+            display: inline-block;
+            margin: 1rem 2rem;
+            padding: 0.5rem 1.5rem;
+            background: var(--verde-areandina);
+            color: white;
+            text-decoration: none;
+            border-radius: 40px;
+            transition: 0.3s;
+        }
+        .volver-btn:hover {
+            background: var(--naranja-areandina);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-area" id="logoLink" style="cursor: pointer;">
+                <div class="isotipo">A</div>
+                <div class="logotipo">COLOSO PLAY</div>
+                <div class="live-badge"><span>●</span> EN DIRECTO</div>
+            </div>
+            <div class="nav-menu">
+                <div class="nav-item"><a class="nav-link" id="navInicio">INICIO</a></div>
+                <div class="nav-item">
+                    <a class="nav-link" id="navFacultades">FACULTADES ▼</a>
+                    <div class="dropdown-content" id="dropdownFacultades">
+                        <a href="#" data-id="ingenieria">Ingeniería y Ciencias Básicas</a>
+                        <a href="#" data-id="derecho">Derecho y Ciencias Políticas</a>
+                        <a href="#" data-id="economicas">Ciencias Económicas, Administrativas y Contables</a>
+                        <a href="#" data-id="comunicacion">Ciencias de la Comunicación</a>
+                        <a href="#" data-id="psicologia">Psicología</a>
+                    </div>
+                </div>
+                <div class="nav-item"><a class="nav-link" id="navGraduaciones">GRADUACIONES</a></div>
+                <div class="nav-item"><a class="nav-link" id="navInnovacion">INNOVACIÓN</a></div>
+                <div class="nav-item"><a class="nav-link" id="navBienestar">BIENESTAR</a></div>
+                <div class="nav-item"><a class="nav-link" id="navRealidades">REALIDADES EXTENDIDAS</a></div>
+            </div>
+            <div class="right-icons">
+                <div class="search-wrapper">
+                    <input type="text" id="searchInput" placeholder="🔍 Buscar videos..." class="search-input-header">
+                    <div id="searchDropdown" class="search-dropdown"></div>
+                </div>
+                <button class="theme-toggle" id="themeToggle">🌙</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="canal-header" id="canalHeader">
+        <h1 id="canalNombre">NUESTRA INSTITUCIÓN</h1>
+        <p id="canalDescripcion">Conoce la historia, himno, infraestructura y más de la Universidad Areandina</p>
+    </div>
+
+    <div class="canal-info" id="canalInfo"></div>
+
+    <div class="seccion-mini-carrusel" id="miniCarruseles"></div>
+
+    <div class="videos-grid-canal" id="videosGrid"></div>
+
+    <a href="index.html" class="volver-btn">← Volver al inicio</a>
+
+    <footer class="footer-nuevo">
+        <div class="footer-info">
+            <p>Fundación Universitaria del Área Andina</p>
+            <div class="legal">© 2024 Coloso Play - Todos los derechos reservados</div>
+        </div>
+    </footer>
+
+    <div id="videoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:2000; align-items:center; justify-content:center;">
+        <div style="position:relative; width:90%; max-width:1000px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <h3 id="videoTitle" style="color:white;">Reproduciendo</h3>
+                <button id="closeModal" style="background:#e6007e; color:white; border:none; padding:8px 20px; border-radius:30px; cursor:pointer;">✕ Cerrar</button>
+            </div>
+            <iframe id="videoIframe" width="100%" height="400px" style="border:none; border-radius:16px;" allowfullscreen></iframe>
+            <button id="fullscreenBtn" style="position:absolute; bottom:-50px; right:0; background:#7fb536; color:white; border:none; padding:8px 20px; border-radius:30px; cursor:pointer;">⛶ Pantalla completa</button>
+        </div>
+    </div>
+
+    <script>
+        // ========== REPRODUCTOR CON CONTADOR DE VISITAS ==========
+        function reproducirVideo(url, titulo) {
+            registrarVisita(titulo);
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('videoIframe');
+            const title = document.getElementById('videoTitle');
+            iframe.src = url;
+            title.innerText = titulo;
+            modal.style.display = 'flex';
+        }
+
+        document.getElementById('closeModal').onclick = () => {
+            document.getElementById('videoModal').style.display = 'none';
+            document.getElementById('videoIframe').src = '';
+        };
+        document.getElementById('fullscreenBtn').onclick = () => {
+            const iframe = document.getElementById('videoIframe');
+            if (iframe.requestFullscreen) iframe.requestFullscreen();
+        };
+
+        // ========== CONTADOR DE VISITAS ==========
+        function registrarVisita(tituloVideo) {
+            let visitasGuardadas = localStorage.getItem('visitasVideo');
+            let visitasMap = {};
+            
+            if (visitasGuardadas) {
+                try {
+                    visitasMap = JSON.parse(visitasGuardadas);
+                } catch(e) {}
+            }
+            
+            const nuevaCantidad = (visitasMap[tituloVideo] || 0) + 1;
+            visitasMap[tituloVideo] = nuevaCantidad;
+            localStorage.setItem('visitasVideo', JSON.stringify(visitasMap));
+            
+            const visitasTexto = nuevaCantidad >= 1000 ? (nuevaCantidad/1000).toFixed(1) + 'k' : nuevaCantidad;
+            
+            document.querySelectorAll('.video-canal-card').forEach(tarjeta => {
+                const tituloElem = tarjeta.querySelector('.video-canal-title');
+                if (tituloElem && tituloElem.innerText === tituloVideo) {
+                    const metaElem = tarjeta.querySelector('.video-canal-meta');
+                    if (metaElem) {
+                        metaElem.innerHTML = `📺 ${visitasTexto} vistas`;
+                    }
+                }
+            });
+            
+            actualizarTotalVideos();
+            actualizarVistasTotalesCanal();
+        }
+
+        function obtenerVistas(tituloVideo) {
+            const visitas = JSON.parse(localStorage.getItem('visitasVideo') || '{}');
+            return visitas[tituloVideo] || 0;
+        }
+
+        function actualizarTodasLasVistas() {
+            const visitasGuardadas = localStorage.getItem('visitasVideo');
+            if (!visitasGuardadas) return;
+            
+            try {
+                const visitasMap = JSON.parse(visitasGuardadas);
+                
+                document.querySelectorAll('.video-canal-card').forEach(tarjeta => {
+                    const tituloElem = tarjeta.querySelector('.video-canal-title');
+                    if (tituloElem) {
+                        const titulo = tituloElem.innerText;
+                        const visitas = visitasMap[titulo] || 0;
+                        const visitasTexto = visitas >= 1000 ? (visitas/1000).toFixed(1) + 'k' : visitas;
+                        
+                        const metaElem = tarjeta.querySelector('.video-canal-meta');
+                        if (metaElem) {
+                            metaElem.innerHTML = `📺 ${visitasTexto} vistas`;
+                        }
+                    }
+                });
+            } catch(e) {}
+        }
+
+        function actualizarTotalVideos() {
+            const totalVideos = document.querySelectorAll('.video-canal-card').length;
+            const totalVideosSpan = document.getElementById('totalVideos');
+            if (totalVideosSpan) {
+                totalVideosSpan.innerText = totalVideos;
+            }
+        }
+
+        function actualizarVistasTotalesCanal() {
+            const visitas = JSON.parse(localStorage.getItem('visitasVideo') || '{}');
+            let total = 0;
+            if (canalData && canalData.videos) {
+                canalData.videos.forEach(video => {
+                    total += visitas[video.titulo] || 0;
+                });
+            }
+            const totalVistasSpan = document.getElementById('totalVistasCanal');
+            if (totalVistasSpan) {
+                totalVistasSpan.innerText = total;
+            }
+        }
+
+        // ========== DATOS DE LOS CANALES ==========
+        const urlParams = new URLSearchParams(window.location.search);
+        const tipo = urlParams.get('tipo') || 'institucion';
+        const id = urlParams.get('id') || '';
+
+        const canalesData = {
+            institucion: {
+                nombre: "NUESTRA INSTITUCIÓN",
+                descripcion: "Conoce la historia, himno, infraestructura y más de la Universidad Areandina",
+                banner: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1920&h=300&fit=crop",
+                logo: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=200&h=200&fit=crop",
+                suscriptores: "15.2K",
+                videos: [
+                    { titulo: "Historia de Areandina", thumb: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=200&fit=crop", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", vistas: 0 },
+                    { titulo: "Himno de la Universidad Areandina", thumb: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=200&fit=crop", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", vistas: 0 },
+                    { titulo: "Infraestructura Sede Bogotá", thumb: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=400&h=200&fit=crop", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", vistas: 0 },
+                    { titulo: "Infraestructura Sede Pereira", thumb: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&h=200&fit=crop", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", vistas: 0 },
+                    { titulo: "Infraestructura Sede Valledupar", thumb: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=400&h=200&fit=crop", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", vistas: 0 },
+                    { titulo: "Acreditación Institucional", thumb: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=200&fit=crop", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", vistas: 0 }
+                ],
+                miniCanales: [
+                    { nombre: "Historia", thumb: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=200&h=120&fit=crop", tipo: "historia" },
+                    { nombre: "Himno", thumb: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=200&h=120&fit=crop", tipo: "himno" },
+                    { nombre: "Infraestructura", thumb: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=200&h=120&fit=crop", tipo: "infraestructura" },
+                    { nombre: "Acreditaciones", thumb: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=200&h=120&fit=crop", tipo: "acreditaciones" }
+                ]
+            },
+            ingenieria: {
+                nombre: "FACULTAD DE INGENIERÍA Y CIENCIAS BÁSICAS",
+                descripcion: "Innovación, tecnología y desarrollo para el futuro",
+                banner: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=1920&h=300&fit=crop",
+                logo: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=200&h=200&fit=crop",
+                suscriptores: "8.5K",
+                videos: [
+                    { titulo: "Laboratorio de Robótica", thumb: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=400&h=200&fit=crop", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", vistas: 0 },
+                    { titulo: "Proyectos de Ingeniería 2025", thumb: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=200&fit=crop", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", vistas: 0 },
+                    { titulo: "Entrevista a egresados destacados", thumb: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=200&fit=crop", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", vistas: 0 }
+                ]
+            },
+            derecho: {
+                nombre: "FACULTAD DE DERECHO Y CIENCIAS POLÍTICAS",
+                descripcion: "Formación con excelencia y compromiso social",
+                banner: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1920&h=300&fit=crop",
+                logo: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=200&h=200&fit=crop",
+                suscriptores: "6.2K",
+                videos: [
+                    { titulo: "Moot Court - Simulacro de juicio", thumb: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&h=200&fit=crop", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", vistas: 0 },
+                    { titulo: "Conferencia de Derecho Penal", thumb: "https://images.unsplash.com/photo-1505664194779-8beaceb93744?w=400&h=200&fit=crop", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", vistas: 0 }
+                ]
+            },
+            economicas: {
+                nombre: "FACULTAD DE CIENCIAS ECONÓMICAS",
+                descripcion: "Liderazgo empresarial y financiero",
+                banner: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1920&h=300&fit=crop",
+                logo: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=200&h=200&fit=crop",
+                suscriptores: "4.8K",
+                videos: [
+                    { titulo: "Finanzas para Emprendedores", thumb: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=200&fit=crop", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", vistas: 0 },
+                    { titulo: "Marketing Digital y Redes Sociales", thumb: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=400&h=200&fit=crop", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", vistas: 0 }
+                ]
+            },
+            comunicacion: {
+                nombre: "FACULTAD DE CIENCIAS DE LA COMUNICACIÓN",
+                descripcion: "Crea, comunica, transforma",
+                banner: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1920&h=300&fit=crop",
+                logo: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=200&h=200&fit=crop",
+                suscriptores: "7.1K",
+                videos: [
+                    { titulo: "Producción Audiovisual", thumb: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=400&h=200&fit=crop", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", vistas: 0 },
+                    { titulo: "Periodismo Digital", thumb: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400&h=200&fit=crop", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", vistas: 0 }
+                ]
+            },
+            psicologia: {
+                nombre: "FACULTAD DE PSICOLOGÍA",
+                descripcion: "Entendiendo la mente, transformando vidas",
+                banner: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=1920&h=300&fit=crop",
+                logo: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop",
+                suscriptores: "5.3K",
+                videos: [
+                    { titulo: "Salud Mental en el Entorno Universitario", thumb: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=200&fit=crop", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", vistas: 0 },
+                    { titulo: "Terapia Cognitivo Conductual", thumb: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=200&fit=crop", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", vistas: 0 }
+                ]
+            }
+        };
+
+        let canalData;
+        if (tipo === 'facultad') {
+            canalData = canalesData[id] || canalesData.institucion;
+        } else {
+            canalData = canalesData.institucion;
+        }
+
+        document.getElementById('canalNombre').innerText = canalData.nombre;
+        document.getElementById('canalDescripcion').innerText = canalData.descripcion;
+
+        function obtenerVistasTotalesCanal() {
+            const visitas = JSON.parse(localStorage.getItem('visitasVideo') || '{}');
+            let total = 0;
+            canalData.videos.forEach(video => {
+                total += visitas[video.titulo] || 0;
+            });
+            return total;
+        }
+
+        document.getElementById('canalInfo').innerHTML = `
+            <img src="${canalData.logo}" class="canal-logo">
+            <div class="canal-descripcion">
+                <h2>${canalData.nombre}</h2>
+                <p>${canalData.descripcion}</p>
+                <div class="canal-stats">
+                    <span>📺 ${canalData.suscriptores} suscriptores</span>
+                    <span>📹 <span id="totalVideos">${canalData.videos.length}</span> videos</span>
+                    <span>👁️ <span id="totalVistasCanal">${obtenerVistasTotalesCanal()}</span> visitas totales</span>
+                </div>
+            </div>
+        `;
+
+        if (canalData.miniCanales && canalData.miniCanales.length > 0) {
+            document.getElementById('miniCarruseles').innerHTML = `
+                <h3>📁 EXPLORA MÁS</h3>
+                <div class="mini-track">
+                    ${canalData.miniCanales.map(mini => `
+                        <div class="mini-card" onclick="window.location.href='canal.html?tipo=${mini.tipo}'">
+                            <img src="${mini.thumb}" class="mini-thumb">
+                            <div class="mini-info">${mini.nombre}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        } else {
+            document.getElementById('miniCarruseles').style.display = 'none';
+        }
+
+        function crearTarjetaVideo(video) {
+            const visitas = obtenerVistas(video.titulo);
+            const visitasTexto = visitas >= 1000 ? (visitas/1000).toFixed(1) + 'k' : visitas;
+            
+            return `
+                <div class="video-canal-card" onclick="reproducirVideo('${video.url}', '${video.titulo}')">
+                    <img src="${video.thumb}" class="video-canal-thumb">
+                    <div class="video-canal-info">
+                        <div class="video-canal-title">${video.titulo}</div>
+                        <div class="video-canal-meta">📺 ${visitasTexto} vistas</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        document.getElementById('videosGrid').innerHTML = canalData.videos.map(crearTarjetaVideo).join('');
+
+        setTimeout(() => {
+            actualizarTodasLasVistas();
+            actualizarTotalVideos();
+            actualizarVistasTotalesCanal();
+        }, 500);
+
+        document.getElementById('logoLink').onclick = () => window.location.href = 'index.html';
+
+        // ========== HEADER FUNCIONAL ==========
+        document.getElementById('navInicio').onclick = (e) => {
+            e.preventDefault();
+            window.location.href = 'index.html';
+        };
+        document.getElementById('navGraduaciones').onclick = (e) => {
+            e.preventDefault();
+            window.location.href = 'seccion.html?seccion=graduaciones';
+        };
+        document.getElementById('navInnovacion').onclick = (e) => {
+            e.preventDefault();
+            window.location.href = 'seccion.html?seccion=innovacion';
+        };
+        document.getElementById('navBienestar').onclick = (e) => {
+            e.preventDefault();
+            window.location.href = 'seccion.html?seccion=bienestar';
+        };
+        document.getElementById('navRealidades').onclick = (e) => {
+            e.preventDefault();
+            window.location.href = 'seccion.html?seccion=realidades';
+        };
+        
+        const facultadesLinks = document.querySelectorAll('#dropdownFacultades a');
+        for (let i = 0; i < facultadesLinks.length; i++) {
+            facultadesLinks[i].onclick = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const id = this.getAttribute('data-id');
+                if (id) {
+                    window.location.href = 'canal.html?tipo=facultad&id=' + id;
+                }
+                return false;
+            };
+        }
+
+        // ========== MODO OSCURO ==========
+        const themeToggle = document.getElementById('themeToggle');
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            themeToggle.innerHTML = '☀️';
+        }
+        if (themeToggle) {
+            themeToggle.onclick = () => {
+                document.body.classList.toggle('dark-mode');
+                const isDark = document.body.classList.contains('dark-mode');
+                themeToggle.innerHTML = isDark ? '☀️' : '🌙';
+                localStorage.setItem('darkMode', isDark);
+            };
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coloso Play | Sección</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .page-header {
+            margin-top: 80px;
+            background: linear-gradient(135deg, var(--verde-areandina) 0%, var(--verde-oscuro) 100%);
+            padding: 2rem;
+            text-align: center;
+        }
+        .page-header h1 { color: white; font-size: 2rem; margin-bottom: 0.5rem; }
+        .page-header p { color: rgba(255,255,255,0.9); }
+        
+        .subsection {
+            margin: 2rem 0;
+            padding: 0 2rem;
+        }
+        
+        .subsection-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--verde-areandina);
+            margin-bottom: 1rem;
+            padding-left: 0.8rem;
+            border-left: 4px solid var(--magenta-areandina);
+        }
+        
+        .carousel-container {
+            position: relative;
+            margin: 1rem 0 2rem;
+        }
+        
+        .carousel-track {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 0.5rem 0;
+            scrollbar-width: thin;
+        }
+        
+        .carousel-track::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .carousel-track::-webkit-scrollbar-track {
+            background: var(--gris-claro);
+            border-radius: 10px;
+        }
+        
+        .carousel-track::-webkit-scrollbar-thumb {
+            background: var(--verde-areandina);
+            border-radius: 10px;
+        }
+        
+        .video-card {
+            min-width: 280px;
+            background: var(--blanco);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid var(--gris-borde);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .video-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-color: var(--verde-areandina);
+        }
+        
+        .video-thumb {
+            width: 100%;
+            height: 158px;
+            object-fit: cover;
+        }
+        
+        .video-info {
+            padding: 0.8rem;
+        }
+        
+        .video-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+            color: var(--negro-areandina);
+        }
+        
+        .video-meta {
+            font-size: 0.7rem;
+            color: var(--verde-areandina);
+        }
+        
+        .carousel-btn {
+            position: absolute;
+            top: 35%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.6);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+        
+        .carousel-btn:hover {
+            background: var(--naranja-areandina);
+        }
+        
+        .carousel-btn.left {
+            left: -15px;
+        }
+
+        .carousel-btn.right {
+            right: -15px;
+        }
+        
+        .volver-btn {
+            display: inline-block;
+            margin: 1rem 2rem;
+            padding: 0.5rem 1.5rem;
+            background: var(--verde-areandina);
+            color: white;
+            text-decoration: none;
+            border-radius: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .subsection { padding: 0 1rem; }
+            .subsection-title { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-area" id="logoLink" style="cursor: pointer;">
+                <div class="isotipo">A</div>
+                <div class="logotipo">COLOSO PLAY</div>
+                <div class="live-badge"><span>●</span> EN DIRECTO</div>
+            </div>
+            <div class="nav-menu">
+                <div class="nav-item"><a class="nav-link" id="navInicio">INICIO</a></div>
+                <div class="nav-item">
+                    <a class="nav-link" id="navFacultades">FACULTADES ▼</a>
+                    <div class="dropdown-content" id="dropdownFacultades">
+                        <a href="#" data-id="ingenieria">Ingeniería y Ciencias Básicas</a>
+                        <a href="#" data-id="derecho">Derecho y Ciencias Políticas</a>
+                        <a href="#" data-id="economicas">Ciencias Económicas, Administrativas y Contables</a>
+                        <a href="#" data-id="comunicacion">Ciencias de la Comunicación</a>
+                        <a href="#" data-id="psicologia">Psicología</a>
+                    </div>
+                </div>
+                <div class="nav-item"><a class="nav-link" id="navGraduaciones">GRADUACIONES</a></div>
+                <div class="nav-item"><a class="nav-link" id="navInnovacion">INNOVACIÓN</a></div>
+                <div class="nav-item"><a class="nav-link" id="navBienestar">BIENESTAR</a></div>
+                <div class="nav-item"><a class="nav-link" id="navRealidades">REALIDADES EXTENDIDAS</a></div>
+            </div>
+            <div class="right-icons">
+                <div class="search-wrapper">
+                    <input type="text" id="searchInput" placeholder="🔍 Buscar videos..." class="search-input-header">
+                    <div id="searchDropdown" class="search-dropdown"></div>
+                </div>
+                <button class="theme-toggle" id="themeToggle">🌙</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-header" id="pageHeader">
+        <h1 id="seccionTitulo">Ceremonias de Graduación</h1>
+        <p id="seccionDescripcion">Todas las ceremonias organizadas por sede</p>
+    </div>
+
+    <a href="index.html" class="volver-btn">← Volver al inicio</a>
+
+    <div id="subseccionesContainer"></div>
+
+    <footer class="footer-nuevo">
+        <div class="footer-info"><p>Fundación Universitaria del Área Andina</p></div>
+    </footer>
+
+    <!-- Modal de video -->
+    <div id="videoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:2000; align-items:center; justify-content:center;">
+        <div style="position:relative; width:90%; max-width:1000px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <h3 id="videoTitle" style="color:white;">Reproduciendo</h3>
+                <button id="closeModal" style="background:#e6007e; color:white; border:none; padding:8px 20px; border-radius:30px; cursor:pointer;">✕ Cerrar</button>
+            </div>
+            <iframe id="videoIframe" width="100%" height="400px" style="border:none; border-radius:16px;" allowfullscreen></iframe>
+            <button id="fullscreenBtn" style="position:absolute; bottom:-50px; right:0; background:#7fb536; color:white; border:none; padding:8px 20px; border-radius:30px; cursor:pointer;">⛶ Pantalla completa</button>
+        </div>
+    </div>
+
+    <script>
+        // ========== REPRODUCTOR CON CONTADOR DE VISITAS ==========
+        function reproducirVideo(url, titulo) {
+            // Registrar la visita
+            registrarVisita(titulo);
+            
+            // Abrir el modal
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('videoIframe');
+            const title = document.getElementById('videoTitle');
+            iframe.src = url;
+            title.innerText = titulo;
+            modal.style.display = 'flex';
+        }
+
+        document.getElementById('closeModal').onclick = () => {
+            document.getElementById('videoModal').style.display = 'none';
+            document.getElementById('videoIframe').src = '';
+        };
+        document.getElementById('fullscreenBtn').onclick = () => {
+            const iframe = document.getElementById('videoIframe');
+            if (iframe.requestFullscreen) iframe.requestFullscreen();
+        };
+
+        // ========== CONTADOR DE VISITAS ==========
+        function registrarVisita(tituloVideo) {
+            console.log('Registrando visita para:', tituloVideo);
+            
+            let visitasGuardadas = localStorage.getItem('visitasVideo');
+            let visitasMap = {};
+            
+            if (visitasGuardadas) {
+                try {
+                    visitasMap = JSON.parse(visitasGuardadas);
+                } catch(e) {}
+            }
+            
+            const nuevaCantidad = (visitasMap[tituloVideo] || 0) + 1;
+            visitasMap[tituloVideo] = nuevaCantidad;
+            localStorage.setItem('visitasVideo', JSON.stringify(visitasMap));
+            
+            // Actualizar en pantalla
+            const visitasTexto = nuevaCantidad >= 1000 ? (nuevaCantidad/1000).toFixed(1) + 'k' : nuevaCantidad;
+            
+            document.querySelectorAll('.video-card').forEach(tarjeta => {
+                const tituloElem = tarjeta.querySelector('.video-title');
+                if (tituloElem && tituloElem.innerText === tituloVideo) {
+                    const metaElem = tarjeta.querySelector('.video-meta');
+                    if (metaElem) {
+                        metaElem.innerHTML = `📺 ${visitasTexto} vistas`;
+                    }
+                }
+            });
+        }
+
+        function obtenerVistas(tituloVideo) {
+            const visitas = JSON.parse(localStorage.getItem('visitasVideo') || '{}');
+            return visitas[tituloVideo] || 0;
+        }
+
+        function actualizarTodasLasVistas() {
+            const visitasGuardadas = localStorage.getItem('visitasVideo');
+            if (!visitasGuardadas) return;
+            
+            try {
+                const visitasMap = JSON.parse(visitasGuardadas);
+                
+                document.querySelectorAll('.video-card').forEach(tarjeta => {
+                    const tituloElem = tarjeta.querySelector('.video-title');
+                    if (tituloElem) {
+                        const titulo = tituloElem.innerText;
+                        const visitas = visitasMap[titulo] || 0;
+                        const visitasTexto = visitas >= 1000 ? (visitas/1000).toFixed(1) + 'k' : visitas;
+                        
+                        const metaElem = tarjeta.querySelector('.video-meta');
+                        if (metaElem) {
+                            metaElem.innerHTML = `📺 ${visitasTexto} vistas`;
+                        }
+                    }
+                });
+            } catch(e) {}
+        }
+
+        // ========== DATOS DE SECCIONES ==========
+        const urlParams = new URLSearchParams(window.location.search);
+        const seccion = urlParams.get('seccion') || 'graduaciones';
+
+        const datosSecciones = {
+            graduaciones: {
+                titulo: "CEREMONIAS DE GRADUACIÓN",
+                descripcion: "Todas las ceremonias organizadas por sede",
+                subs: [
+                    { nombre: "📍 Bogotá", videos: [
+    { titulo: "GRADOS BOGOTÁ 04/03/2024 7:00 AM", thumb: "https://img.youtube.com/vi/12SlFTXScQc/maxresdefault.jpg", url: "https://www.youtube.com/embed/12SlFTXScQc", vistas: 0 },
+    { titulo: "GRADOS BOGOTÁ 04/03/2024 1:00 PM", thumb: "https://img.youtube.com/vi/pJq692mc8hw/maxresdefault.jpg", url: "https://www.youtube.com/embed/pJq692mc8hw", vistas: 0 },
+    { titulo: "GRADOS BOGOTÁ 04/03/2024 5:00 PM", thumb: "https://img.youtube.com/vi/nHHNqEjMzSU/maxresdefault.jpg", url: "https://www.youtube.com/embed/nHHNqEjMzSU", vistas: 0 },
+    { titulo: "GRADOS BOGOTÁ 05/03/2024 8:00 AM", thumb: "https://img.youtube.com/vi/43C_jSIS4RU/maxresdefault.jpg", url: "https://www.youtube.com/embed/43C_jSIS4RU", vistas: 0 },
+    { titulo: "GRADOS BOGOTÁ 05/03/2024 11:00 AM", thumb: "https://img.youtube.com/vi/jl0WNQ3q18E/maxresdefault.jpg", url: "https://www.youtube.com/embed/jl0WNQ3q18E", vistas: 0 },
+    { titulo: "GRADOS BOGOTÁ 05/03/2024 4:00 PM", thumb: "https://img.youtube.com/vi/mJPqwXy8Euk/maxresdefault.jpg", url: "https://www.youtube.com/embed/mJPqwXy8Euk", vistas: 0 }
+]},
+                    { nombre: "📍 Pereira", videos: [
+                        { titulo: "Graduación Pereira 2025-1", thumb: "URL_IMAGEN", url: "URL_VIDEO", vistas: 0 },
+                        { titulo: "Graduación Pereira 2025-2", thumb: "URL_IMAGEN", url: "URL_VIDEO", vistas: 0 }
+                    ]},
+                    { nombre: "📍 Valledupar", videos: [
+                        { titulo: "Graduación Valledupar 2025-1", thumb: "URL_IMAGEN", url: "URL_VIDEO", vistas: 0 }
+                    ]},
+                    { nombre: "💻 Virtuales", videos: [
+                        { titulo: "Graduación Virtual 2025-1", thumb: "URL_IMAGEN", url: "URL_VIDEO", vistas: 0 }
+                    ]}
+                ]
+            },
+            innovacion: {
+                titulo: "CENTRO DE INNOVACIÓN TECNOLÓGICA",
+                descripcion: "Capacitaciones y programas de innovación",
+                subs: [
+                    { nombre: "🔧 Capacitaciones Ceita", videos: [
+                        { titulo: "Ceita 2025-1", thumb: "URL_IMAGEN", url: "URL_VIDEO", vistas: 0 }
+                    ]},
+                    { nombre: "⚡ Parrilla 4.0", videos: [
+                        { titulo: "Parrilla 4.0 - Módulo 1", thumb: "URL_IMAGEN", url: "URL_VIDEO", vistas: 0 }
+                    ]}
+                ]
+            },
+            realidades: {
+                titulo: "REALIDADES EXTENDIDAS",
+                descripcion: "Espacios virtuales y contenidos educativos",
+                subs: [
+                    { nombre: "🕶️ Espacios Virtuales", videos: [
+                        { titulo: "Realidad Virtual - Introducción", thumb: "URL_IMAGEN", url: "URL_VIDEO", vistas: 0 }
+                    ]},
+                    { nombre: "📚 Contenidos Educativos", videos: [
+                        { titulo: "Contenido 360 - Clase 1", thumb: "URL_IMAGEN", url: "URL_VIDEO", vistas: 0 }
+                    ]}
+                ]
+            },
+            bienestar: {
+                titulo: "BIENESTAR UNIVERSITARIO",
+                descripcion: "Programas de bienestar y permanencia",
+                subs: [
+                    { nombre: "❤️ Bienestar", videos: [
+                        { titulo: "Salud Mental - Taller 1", thumb: "URL_IMAGEN", url: "URL_VIDEO", vistas: 0 }
+                    ]},
+                    { nombre: "📖 Permanencia", videos: [
+                        { titulo: "Apoyo Estudiantil 2025", thumb: "URL_IMAGEN", url: "URL_VIDEO", vistas: 0 }
+                    ]}
+                ]
+            }
+        };
+
+        const data = datosSecciones[seccion] || datosSecciones.graduaciones;
+        document.getElementById('seccionTitulo').innerText = data.titulo;
+        document.getElementById('seccionDescripcion').innerText = data.descripcion;
+
+        // Función para crear tarjeta con visitas reales
+        function crearTarjetaVideo(video) {
+            const visitas = obtenerVistas(video.titulo);
+            const visitasTexto = visitas >= 1000 ? (visitas/1000).toFixed(1) + 'k' : visitas;
+            
+            return `
+                <div class="video-card" onclick="reproducirVideo('${video.url}', '${video.titulo}')">
+                    <img src="${video.thumb}" class="video-thumb">
+                    <div class="video-info">
+                        <div class="video-title">${video.titulo}</div>
+                        <div class="video-meta">📺 ${visitasTexto} vistas</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Generar subsecciones con carruseles
+        const container = document.getElementById('subseccionesContainer');
+        container.innerHTML = data.subs.map(sub => `
+            <div class="subsection">
+                <h3 class="subsection-title">${sub.nombre}</h3>
+                <div class="carousel-container">
+                    <div class="carousel-track">
+                        ${sub.videos.map(v => crearTarjetaVideo(v)).join('')}
+                    </div>
+                    <button class="carousel-btn left">❮</button>
+                    <button class="carousel-btn right">❯</button>
+                </div>
+            </div>
+        `).join('');
+
+        // Inicializar los botones de cada carrusel
+        function inicializarCarruseles() {
+            document.querySelectorAll('.carousel-container').forEach(container => {
+                const leftBtn = container.querySelector('.carousel-btn.left');
+                const rightBtn = container.querySelector('.carousel-btn.right');
+                const track = container.querySelector('.carousel-track');
+                
+                if (leftBtn && rightBtn && track) {
+                    // Eliminar eventos anteriores
+                    const newLeft = leftBtn.cloneNode(true);
+                    const newRight = rightBtn.cloneNode(true);
+                    leftBtn.parentNode.replaceChild(newLeft, leftBtn);
+                    rightBtn.parentNode.replaceChild(newRight, rightBtn);
+                    
+                    newLeft.onclick = () => track.scrollBy({ left: -300, behavior: 'smooth' });
+                    newRight.onclick = () => track.scrollBy({ left: 300, behavior: 'smooth' });
+                }
+            });
+        }
+        
+        inicializarCarruseles();
+
+        // Actualizar vistas después de cargar
+        setTimeout(actualizarTodasLasVistas, 500);
+
+        // ========== HEADER FUNCIONAL ==========
+        document.getElementById('navInicio').onclick = () => window.location.href = 'index.html';
+        document.getElementById('navGraduaciones').onclick = () => window.location.href = 'seccion.html?seccion=graduaciones';
+        document.getElementById('navInnovacion').onclick = () => window.location.href = 'seccion.html?seccion=innovacion';
+        document.getElementById('navBienestar').onclick = () => window.location.href = 'seccion.html?seccion=bienestar';
+        document.getElementById('navRealidades').onclick = () => window.location.href = 'seccion.html?seccion=realidades';
+        
+        const facultadesLinks = document.querySelectorAll('#dropdownFacultades a');
+        for (let i = 0; i < facultadesLinks.length; i++) {
+            facultadesLinks[i].onclick = (e) => {
+                e.preventDefault();
+                const id = e.target.getAttribute('data-id');
+                window.location.href = 'canal.html?tipo=facultad&id=' + id;
+            };
+        }
+
+        // ========== BUSCADOR ==========
+        const searchInput = document.getElementById('searchInput');
+        const searchDropdown = document.getElementById('searchDropdown');
+        if (searchInput) {
+            const videos = [];
+            document.querySelectorAll('.video-card').forEach(card => {
+                const tituloElem = card.querySelector('.video-title');
+                const titulo = tituloElem ? tituloElem.innerText : '';
+                const onclickAttr = card.getAttribute('onclick');
+                let url = '';
+                if (onclickAttr) {
+                    const match = onclickAttr.match(/reproducirVideo\('([^']+)'/);
+                    if (match) url = match[1];
+                }
+                if (titulo) videos.push({ titulo, url });
+            });
+            
+            searchInput.addEventListener('input', (e) => {
+                const termino = e.target.value.toLowerCase().trim();
+                if (termino.length < 2) { searchDropdown.style.display = 'none'; return; }
+                const resultados = videos.filter(v => v.titulo.toLowerCase().includes(termino));
+                if (resultados.length > 0) {
+                    searchDropdown.innerHTML = resultados.map(v => `
+                        <div class="search-dropdown-item" onclick="reproducirVideo('${v.url}', '${v.titulo}')">
+                            <div style="padding: 10px;">
+                                <div style="font-weight:500;">${v.titulo}</div>
+                            </div>
+                        </div>
+                    `).join('');
+                    searchDropdown.style.display = 'block';
+                } else {
+                    searchDropdown.innerHTML = '<div class="search-dropdown-item">🔍 No se encontraron resultados</div>';
+                    searchDropdown.style.display = 'block';
+                }
+            });
+            
+            document.addEventListener('click', (e) => {
+                if (!searchInput.contains(e.target)) searchDropdown.style.display = 'none';
+            });
+        }
+
+        // ========== MODO OSCURO ==========
+        const themeToggle = document.getElementById('themeToggle');
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            themeToggle.innerHTML = '☀️';
+        }
+        if (themeToggle) {
+            themeToggle.onclick = () => {
+                document.body.classList.toggle('dark-mode');
+                const isDark = document.body.classList.contains('dark-mode');
+                themeToggle.innerHTML = isDark ? '☀️' : '🌙';
+                localStorage.setItem('darkMode', isDark);
+            };
+        }
+
+        // Logo clickeable
+        document.getElementById('logoLink').onclick = () => window.location.href = 'index.html';
+    </script>
+</body>
+</html>
