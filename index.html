@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+   
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Coloso Play | Streaming Universitario</title>
@@ -234,27 +235,31 @@
         </div>
     </div>
 
-    <!-- RADIO MINI PLAYER -->
-    <div class="radio-mini-player" id="radioMiniPlayer">
-        <div class="radio-mini-header">
-            <span class="radio-mini-live"></span>
-            <span class="radio-mini-title">Areandina Radio</span>
+   <!-- Reproductor de radio estilo moderno -->
+<div class="radio-mini-player" id="radioMiniPlayer">
+    <div class="radio-modern-container">
+        <div class="radio-now-playing">
+            <span class="radio-label">TOCANDO AHORA</span>
+            <p class="radio-song-name" id="radioSongName">Areandina Radio</p>
         </div>
-        <div class="radio-mini-info">
-            <div class="radio-mini-wave" id="radioMiniWave">
-                <span></span><span></span><span></span>
-            </div>
-            <p class="radio-mini-song" id="radioMiniSong">TOCANDO AHORA</p>
+        
+        <div class="radio-visualizer">
+            <div class="radio-wave-bar"></div>
+            <div class="radio-wave-bar"></div>
+            <div class="radio-wave-bar"></div>
+            <div class="radio-wave-bar"></div>
+            <div class="radio-wave-bar"></div>
+            <div class="radio-wave-bar"></div>
         </div>
-        <div class="radio-mini-controls">
-            <div class="radio-mini-volume">
-                <button class="radio-mini-volume-btn" id="volumeBtn">🔊</button>
-                <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="70">
-            </div>
-            <button class="radio-mini-btn" id="playPauseMiniBtn">▶</button>
+        
+        <div class="radio-controls-group">
+            <button class="radio-volumen-btn" id="volumeBtnRadio">🔊</button>
+            <input type="range" id="volumeSliderRadio" class="radio-slider" min="0" max="100" value="70">
+            <button class="radio-play-btn" id="playPauseMiniBtn">▶</button>
         </div>
-        <audio id="radioMiniAudio" style="display: none;" preload="none"></audio>
     </div>
+    <audio id="radioMiniAudio" style="display: none;" preload="none"></audio>
+</div>
 
     <!-- MASCOTA INTERACTIVA -->
 <div id="mascota" style="position: fixed; bottom: 20px; right: 20px; width: 70px; cursor: pointer; z-index: 1000;">
@@ -295,13 +300,13 @@ box-shadow: 0 0 20px rgba(0,0,0,0.5);
 
 </style>
 </head>
+
 <body>
 <div id="miModal" class="modal-overlay">
 <div class="modal-contenedor">
 <a href="https://www.areandina.edu.co/servicios-administrativos/centro-de-recursos-educativos-0" target="_blank">
 <img src="imagenes/banner.png" alt="Banner">
 </a>
-
 
 <script>
 

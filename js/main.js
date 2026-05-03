@@ -742,7 +742,7 @@ if (document.readyState === 'loading') {
 function iniciarRadioMini() {
     const playBtn = document.getElementById('playPauseMiniBtn');
     const audio = document.getElementById('radioMiniAudio');
-    const radioSong = document.getElementById('radioMiniSong');
+    const radioSong = document.getElementById('radioSongName'); // Cambia el ID
     const radioWave = document.getElementById('radioMiniWave');
     const volumeSlider = document.getElementById('volumeSlider');
     const volumeBtn = document.getElementById('volumeBtn');
@@ -761,13 +761,13 @@ function iniciarRadioMini() {
             audio.play();
             reproduciendo = true;
             playBtn.innerHTML = '⏸';
-            radioSong.innerHTML = '🎧 Escuchando en vivo...';
+            radioSong.innerHTML = '🎧 Escuchando en vivo';
             radioWave.style.opacity = '1';
         } else {
             audio.pause();
             reproduciendo = false;
             playBtn.innerHTML = '▶';
-            radioSong.innerHTML = '📻 TOCANDO AHORA';
+            radioSong.innerHTML = 'Areandina Radio';
             radioWave.style.opacity = '0.5';
         }
     });
@@ -1124,3 +1124,8 @@ function actualizarTodasLasVistas() {
 
 // Ejecutar después de cargar los carruseles
 setTimeout(actualizarTodasLasVistas, 500);
+
+
+
+
+

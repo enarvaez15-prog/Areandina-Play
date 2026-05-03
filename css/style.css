@@ -1,3 +1,4 @@
+
 /* ===== FUENTES BROWN (OFICIAL) ===== */
 /* ===== FUENTES BROWN (OFICIAL) ===== */
 @font-face {
@@ -767,47 +768,69 @@ p, span, li, a:not(.nav-link),
     color: #666;
 }
 
-/* Buscador */
+/* ===== BUSCADOR MEJORADO (claro y oscuro) ===== */
 .search-wrapper {
     position: relative;
 }
 
 .search-input-header {
-    padding: 6px 12px;
+    padding: 8px 15px;
     border-radius: 40px;
     border: 1px solid var(--gris-borde);
-    font-size: 0.8rem;
-    width: 150px;
-    transition: 0.3s;
+    font-size: 0.85rem;
+    width: 180px;
+    transition: all 0.3s ease;
+    outline: none;
+    background-color: white;
+    
 }
 
 .search-input-header:focus {
-    outline: none;
+    width: 220px;
     border-color: var(--verde-areandina);
-    width: 180px;
+    
 }
 
+/* ===== MODO OSCURO - BUSCADOR ===== */
+body.dark-mode .search-input-header {
+    
+    color: white;
+}
+
+body.dark-mode .search-input-header::placeholder {
+    color: #aaa;
+}
+
+body.dark-mode .search-input-header:focus {
+    border-color: var(--verde-areandina);
+    
+    
+}
+
+/* Dropdown de resultados */
 .search-dropdown {
     position: absolute;
     top: 100%;
     right: 0;
-    width: 300px;
+    width: 320px;
     background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     display: none;
     max-height: 400px;
     overflow-y: auto;
     z-index: 1000;
+    margin-top: 8px;
 }
 
 .search-dropdown-item {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px;
+    gap: 12px;
+    padding: 12px;
     cursor: pointer;
     border-bottom: 1px solid var(--gris-borde);
+    transition: background 0.2s ease;
 }
 
 .search-dropdown-item:hover {
@@ -821,119 +844,195 @@ p, span, li, a:not(.nav-link),
     border-radius: 8px;
 }
 
-/* Radio Mini Player */
-.radio-mini-player {
-    position: fixed;
-    left: 20px;
-    bottom: 20px;
-    width: 260px;
-    background: rgba(0, 0, 0, 0.9);
-    backdrop-filter: blur(10px);
-    border-radius: 16px;
-    padding: 10px 15px;
-    z-index: 1000;
-    border: 1px solid rgba(127, 181, 54, 0.4);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+/* Modo oscuro - dropdown */
+body.dark-mode .search-dropdown {
+    background: #1e1e2a;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
-.radio-mini-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 5px;
+body.dark-mode .search-dropdown-item {
+    border-bottom-color: #333;
 }
 
-.radio-mini-live {
-    background: #ff0000;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    animation: pulse 1.5s infinite;
+body.dark-mode .search-dropdown-item:hover {
+    background: #2a2a2a;
 }
 
-.radio-mini-title {
-    font-size: 0.7rem;
+body.dark-mode .search-dropdown-item div {
     color: white;
 }
 
-.radio-mini-info {
-    margin-bottom: 8px;
+/* ===== REPRODUCTOR DE RADIO ESTILO MODERNO ===== */
+.radio-mini-player {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
 }
 
-.radio-mini-wave {
+.radio-modern-container {
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.radio-modern-container:hover {
+    transform: translateY(-2px);
+    border-color: rgba(127, 181, 54, 0.4);
+}
+
+/* Sección "TOCANDO AHORA" */
+.radio-now-playing {
+    min-width: 150px;
+}
+
+.radio-label {
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: #7fb536;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.radio-song-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: white;
+    margin: 4px 0 0 0;
+    white-space: nowrap;
+}
+
+/* Visualizador de ondas */
+.radio-visualizer {
     display: flex;
     align-items: center;
     gap: 3px;
-    margin-bottom: 3px;
+    height: 30px;
 }
 
-.radio-mini-wave span {
+.radio-wave-bar {
     width: 3px;
     background: #7fb536;
-    animation: miniWave 0.8s ease-in-out infinite;
+    border-radius: 2px;
+    animation: waveRadio 0.8s ease-in-out infinite;
 }
 
-.radio-mini-wave span:nth-child(1) { height: 6px; animation-delay: 0s; }
-.radio-mini-wave span:nth-child(2) { height: 12px; animation-delay: 0.2s; }
-.radio-mini-wave span:nth-child(3) { height: 8px; animation-delay: 0.4s; }
+.radio-wave-bar:nth-child(1) { height: 10px; animation-delay: 0s; }
+.radio-wave-bar:nth-child(2) { height: 18px; animation-delay: 0.1s; }
+.radio-wave-bar:nth-child(3) { height: 25px; animation-delay: 0.2s; }
+.radio-wave-bar:nth-child(4) { height: 18px; animation-delay: 0.3s; }
+.radio-wave-bar:nth-child(5) { height: 10px; animation-delay: 0.4s; }
+.radio-wave-bar:nth-child(6) { height: 25px; animation-delay: 0.5s; }
 
-@keyframes miniWave {
+@keyframes waveRadio {
     0%, 100% { transform: scaleY(1); }
     50% { transform: scaleY(0.5); }
 }
 
-.radio-mini-song {
-    font-size: 0.7rem;
-    color: #ccc;
-}
-
-.radio-mini-controls {
+/* Controles */
+.radio-controls-group {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 8px;
 }
 
-.radio-mini-volume {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.radio-mini-volume-btn {
-    background: none;
+.radio-volumen-btn {
+    background: rgba(255, 255, 255, 0.1);
     border: none;
     color: white;
+    font-size: 0.8rem;
     cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
 }
 
-.volume-slider {
-    width: 60px;
+.radio-volumen-btn:hover {
+    background: var(--verde-areandina);
+}
+
+.radio-slider {
+    width: 70px;
     height: 3px;
     -webkit-appearance: none;
-    background: #333;
+    background: rgba(255, 255, 255, 0.3);
     border-radius: 5px;
 }
 
-.volume-slider::-webkit-slider-thumb {
+.radio-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background: #7fb536;
     cursor: pointer;
 }
 
-.radio-mini-btn {
-    background: #7fb536;
+.radio-play-btn {
+    background: var(--verde-areandina);
     border: none;
     color: white;
-    width: 28px;
-    height: 28px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.radio-play-btn:hover {
+    background: var(--naranja-areandina);
+    transform: scale(1.05);
+}
+
+/* Modo oscuro (claro) */
+body.dark-mode .radio-modern-container {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .radio-mini-player {
+        left: 10px;
+        bottom: 10px;
+    }
+    
+    .radio-modern-container {
+        padding: 8px 12px;
+        gap: 0.8rem;
+    }
+    
+    .radio-now-playing {
+        min-width: 100px;
+    }
+    
+    .radio-song-name {
+        font-size: 0.7rem;
+    }
+    
+    .radio-slider {
+        width: 50px;
+    }
+    
+    .radio-play-btn {
+        width: 30px;
+        height: 30px;
+    }
 }
 
 /* Botón de play centrado */
@@ -990,6 +1089,12 @@ p, span, li, a:not(.nav-link),
 }
 
 /* Modo oscuro */
+/* ===== FONDO GRANULAR SOLO EN MODO OSCURO ===== */
+body.dark-mode {
+    background-color: #0a0a0a;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
 body.dark-mode {
     background-color: #0a0a0a;
     color: #ffffff;
@@ -1292,9 +1397,9 @@ body.dark-mode .theme-toggle:hover {
 }
 /* Logo del header */
 .logo-img {
-    height: 90px;
+    height: 60px;
     width: auto;
-    max-height: 90px;
+    max-height: 60px;
     object-fit: contain;
 }
 
@@ -1303,3 +1408,134 @@ body.dark-mode .theme-toggle:hover {
         height: 55px;
     }
 }
+
+
+
+
+.section-title {
+    position: relative;
+    display: inline-block;
+}
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background-color: #7fb536;
+    transition: width 0.3s;
+}
+.section-title:hover::after {
+    width: 100%;
+}
+
+.nav-link, .hero-btn, .search-btn {
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.nav-link:hover, .hero-btn:hover, .search-btn:hover {
+    box-shadow: 0 0 15px 0 var(--verde-areandina);
+    background-color: var(--verde-areandina);
+    transform: scale(1.02);
+
+    /*animacion de botones header */
+}
+.nav-link:hover, .hero-btn:hover, .search-btn:hover {
+    animation: rubberBand 0.6s ease;
+    box-shadow: 0 0 15px rgba(127, 181, 54, 0.6);
+}
+
+@keyframes rubberBand {
+    0% { transform: scale3d(1, 1, 1); }
+    30% { transform: scale3d(1.1, 0.9, 1); }
+    40% { transform: scale3d(0.95, 1.05, 1); }
+    50% { transform: scale3d(1.05, 0.95, 1); }
+    65% { transform: scale3d(0.98, 1.02, 1); }
+    100% { transform: scale3d(1, 1, 1); }
+}
+
+
+
+/* ===== BOTÓN DE PLAY CENTRADO EN LA IMAGEN ===== */
+.video-card,
+.video-card-inline,
+.video-canal-card {
+    position: relative;
+    cursor: pointer;
+}
+
+/* El botón se posiciona sobre la imagen, no sobre toda la tarjeta */
+.video-card::after,
+.video-card-inline::after,
+.video-canal-card::after {
+    content: '▶';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+    height: 48px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: white;
+    opacity: 0;
+    transition: all 0.2s ease;
+    z-index: 10;
+    font-family: Arial, sans-serif;
+    text-indent: 2px;
+    pointer-events: none;
+}
+
+/* Ajuste para que el botón se centre en la imagen, no en la tarjeta completa */
+.video-card .video-thumb,
+.video-card-inline .video-thumb,
+.video-canal-card .video-canal-thumb {
+    display: block;
+    width: 100%;
+}
+
+/* El botón sigue a la imagen */
+.video-card,
+.video-card-inline,
+.video-canal-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.video-card::after,
+.video-card-inline::after,
+.video-canal-card::after {
+    top: calc(40% - 0px);
+}
+
+/* Hover */
+.video-card:hover::after,
+.video-card-inline:hover::after,
+.video-canal-card:hover::after {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+    background: #e6007e;
+}
+
+/* Modo oscuro */
+body.dark-mode .video-card::after,
+body.dark-mode .video-card-inline::after,
+body.dark-mode .video-canal-card::after {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+body.dark-mode .video-card:hover::after,
+body.dark-mode .video-card-inline:hover::after,
+body.dark-mode .video-canal-card:hover::after {
+    background: #e6007e;
+}
+
+
+
