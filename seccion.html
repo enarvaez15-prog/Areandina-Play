@@ -129,23 +129,146 @@
             right: -15px;
         }
         
+        /* Barra superior con filtro */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 2rem;
+        }
+        
         .volver-btn {
             display: inline-block;
-            margin: 1rem 2rem;
             padding: 0.5rem 1.5rem;
             background: var(--verde-areandina);
             color: white;
             text-decoration: none;
             border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: 0.2s;
+            white-space: nowrap;
+            margin: 0;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .volver-btn:hover {
+            background: var(--naranja-areandina);
+            transform: translateX(-3px);
+        }
+        
+        /* Dropdown filtro */
+        .dropdown-filtro {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-filtro .volver-btn {
+            background: var(--verde-areandina);
+            color: white;
+        }
+        
+        .dropdown-filtro .volver-btn:hover {
+            background: var(--naranja-areandina);
+            transform: translateX(0) scale(1.02);
+        }
+        
+        .dropdown-arrow {
+            font-size: 0.65rem;
+            transition: transform 0.2s ease;
+        }
+        
+        .dropdown-filtro-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            margin-top: 8px;
+            z-index: 100;
+            display: none;
+            overflow: hidden;
+            border: 1px solid var(--gris-borde);
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .dropdown-filtro-content.show {
+            display: block;
+        }
+        
+        .filtro-option {
+            width: 100%;
+            padding: 10px 16px;
+            text-align: left;
+            background: transparent;
+            border: none;
+            font-size: 0.85rem;
+            color: #333;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .filtro-option:hover {
+            background: rgba(127, 181, 54, 0.1);
+        }
+        
+        .filtro-option.active {
+            background: #7fb536;
+            color: white;
+        }
+        
+        .sin-resultados {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+        
+        /* Modo oscuro */
+        body.dark-mode .dropdown-filtro-content {
+            background: #1e1e2a;
+            border-color: #333;
+        }
+        
+        body.dark-mode .filtro-option {
+            color: #ddd;
+        }
+        
+        body.dark-mode .filtro-option:hover {
+            background: rgba(127, 181, 54, 0.2);
+        }
+        
+        body.dark-mode .filtro-option.active {
+            background: #7fb536;
+            color: white;
         }
         
         @media (max-width: 768px) {
-            .subsection { padding: 0 1rem; }
-            .subsection-title { font-size: 1.1rem; }
+            .top-bar {
+                flex-direction: column;
+                align-items: stretch;
+                margin: 1rem;
+            }
+            .subsection {
+                padding: 0 1rem;
+            }
+            .subsection-title {
+                font-size: 1.1rem;
+            }
+            .dropdown-filtro .volver-btn {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
+    
     <header class="header">
         <div class="header-container">
             <div class="logo-area" id="logoLink" style="cursor: pointer;">
@@ -156,11 +279,13 @@
                 <div class="nav-item">
                     <a class="nav-link" id="navFacultades">FACULTADES ▼</a>
                     <div class="dropdown-content" id="dropdownFacultades">
+                        <a href="#" data-id="administrativas">Ciencias Administrativas, Económicas y Financieras</a>
+                        <a href="#" data-id="salud">Ciencias de la Salud y del Deporte</a>
+                        <a href="#" data-id="diseno">Diseño, Comunicación y Bellas Artes</a>
+                        <a href="#" data-id="derecho">Derecho</a>
+                        <a href="#" data-id="educacion">Educación</a>
+                        <a href="#" data-id="sociales">Ciencias Sociales y Humanas</a>
                         <a href="#" data-id="ingenieria">Ingeniería y Ciencias Básicas</a>
-                        <a href="#" data-id="derecho">Derecho y Ciencias Políticas</a>
-                        <a href="#" data-id="economicas">Ciencias Económicas, Administrativas y Contables</a>
-                        <a href="#" data-id="comunicacion">Ciencias de la Comunicación</a>
-                        <a href="#" data-id="psicologia">Psicología</a>
                     </div>
                 </div>
                 <div class="nav-item"><a class="nav-link" id="navGraduaciones">GRADUACIONES</a></div>
@@ -183,7 +308,17 @@
         <p id="seccionDescripcion">Todas las ceremonias organizadas por sede</p>
     </div>
 
-    <a href="index.html" class="volver-btn">← Volver al inicio</a>
+    <div class="top-bar">
+        <a href="index.html" class="volver-btn">← Volver al inicio</a>
+        <div class="dropdown-filtro">
+            <button class="volver-btn" id="dropdownFiltroBtn">
+                🎬 Todas las categorías <span class="dropdown-arrow">▼</span>
+            </button>
+            <div class="dropdown-filtro-content" id="dropdownFiltroContent">
+                
+            </div>
+        </div>
+    </div>
 
     <div id="subseccionesContainer"></div>
 
@@ -204,12 +339,9 @@
     </div>
 
     <script>
-        // ========== REPRODUCTOR CON CONTADOR DE VISITAS ==========
+        // Reproductor
         function reproducirVideo(url, titulo) {
-            // Registrar la visita
             registrarVisita(titulo);
-            
-            // Abrir el modal
             const modal = document.getElementById('videoModal');
             const iframe = document.getElementById('videoIframe');
             const title = document.getElementById('videoTitle');
@@ -227,33 +359,23 @@
             if (iframe.requestFullscreen) iframe.requestFullscreen();
         };
 
-        // ========== CONTADOR DE VISITAS ==========
+        // Categoria de vistas
         function registrarVisita(tituloVideo) {
-            console.log('Registrando visita para:', tituloVideo);
-            
             let visitasGuardadas = localStorage.getItem('visitasVideo');
             let visitasMap = {};
-            
             if (visitasGuardadas) {
-                try {
-                    visitasMap = JSON.parse(visitasGuardadas);
-                } catch(e) {}
+                try { visitasMap = JSON.parse(visitasGuardadas); } catch(e) {}
             }
-            
             const nuevaCantidad = (visitasMap[tituloVideo] || 0) + 1;
             visitasMap[tituloVideo] = nuevaCantidad;
             localStorage.setItem('visitasVideo', JSON.stringify(visitasMap));
             
-            // Actualizar en pantalla
             const visitasTexto = nuevaCantidad >= 1000 ? (nuevaCantidad/1000).toFixed(1) + 'k' : nuevaCantidad;
-            
             document.querySelectorAll('.video-card').forEach(tarjeta => {
                 const tituloElem = tarjeta.querySelector('.video-title');
                 if (tituloElem && tituloElem.innerText === tituloVideo) {
                     const metaElem = tarjeta.querySelector('.video-meta');
-                    if (metaElem) {
-                        metaElem.innerHTML = `📺 ${visitasTexto} vistas`;
-                    }
+                    if (metaElem) metaElem.innerHTML = `📺 ${visitasTexto} vistas`;
                 }
             });
         }
@@ -266,27 +388,31 @@
         function actualizarTodasLasVistas() {
             const visitasGuardadas = localStorage.getItem('visitasVideo');
             if (!visitasGuardadas) return;
-            
             try {
                 const visitasMap = JSON.parse(visitasGuardadas);
-                
                 document.querySelectorAll('.video-card').forEach(tarjeta => {
                     const tituloElem = tarjeta.querySelector('.video-title');
                     if (tituloElem) {
                         const titulo = tituloElem.innerText;
                         const visitas = visitasMap[titulo] || 0;
                         const visitasTexto = visitas >= 1000 ? (visitas/1000).toFixed(1) + 'k' : visitas;
-                        
                         const metaElem = tarjeta.querySelector('.video-meta');
-                        if (metaElem) {
-                            metaElem.innerHTML = `📺 ${visitasTexto} vistas`;
-                        }
+                        if (metaElem) metaElem.innerHTML = `📺 ${visitasTexto} vistas`;
                     }
                 });
             } catch(e) {}
         }
 
-        // ========== DATOS DE SECCIONES ==========
+        // Categorias disponibles
+        const CATEGORIAS = [
+            { id: 'todos', nombre: 'Todas las categorías', icono: '🎬' },
+            { id: 'ceremonia', nombre: 'Ceremonias', icono: '🎓' },
+            { id: 'podcast', nombre: 'Podcasts', icono: '🎙️' },
+            { id: 'webinar', nombre: 'Webinars', icono: '💻' },
+            { id: 'charla', nombre: 'Charlas', icono: '🎤' },
+        ];
+
+        // Datos en secciones
         const urlParams = new URLSearchParams(window.location.search);
         const seccion = urlParams.get('seccion') || 'graduaciones';
 
@@ -296,22 +422,29 @@
                 descripcion: "Todas las ceremonias organizadas por sede",
                 subs: [
                     { nombre: "📍 Bogotá", videos: [
-    { titulo: "GRADOS BOGOTÁ 04/03/2024 7:00 AM", thumb: "https://img.youtube.com/vi/12SlFTXScQc/maxresdefault.jpg", url: "https://www.youtube.com/embed/12SlFTXScQc", vistas: 0 },
-    { titulo: "GRADOS BOGOTÁ 04/03/2024 1:00 PM", thumb: "https://img.youtube.com/vi/pJq692mc8hw/maxresdefault.jpg", url: "https://www.youtube.com/embed/pJq692mc8hw", vistas: 0 },
-    { titulo: "GRADOS BOGOTÁ 04/03/2024 5:00 PM", thumb: "https://img.youtube.com/vi/nHHNqEjMzSU/maxresdefault.jpg", url: "https://www.youtube.com/embed/nHHNqEjMzSU", vistas: 0 },
-    { titulo: "GRADOS BOGOTÁ 05/03/2024 8:00 AM", thumb: "https://img.youtube.com/vi/43C_jSIS4RU/maxresdefault.jpg", url: "https://www.youtube.com/embed/43C_jSIS4RU", vistas: 0 },
-    { titulo: "GRADOS BOGOTÁ 05/03/2024 11:00 AM", thumb: "https://img.youtube.com/vi/jl0WNQ3q18E/maxresdefault.jpg", url: "https://www.youtube.com/embed/jl0WNQ3q18E", vistas: 0 },
-    { titulo: "GRADOS BOGOTÁ 05/03/2024 4:00 PM", thumb: "https://img.youtube.com/vi/mJPqwXy8Euk/maxresdefault.jpg", url: "https://www.youtube.com/embed/mJPqwXy8Euk", vistas: 0 }
-]},
+                        { titulo: "GRADOS BOGOTÁ 16/04/2024 12:30 PM", thumb: "https://img.youtube.com/vi/VymY43F976U/maxresdefault.jpg", url: "https://www.youtube.com/embed/VymY43F976U", categoria: "ceremonia", vistas: 0 },
+                        { titulo: "GRADOS BOGOTÁ 16/04/2026 3:00 PM", thumb: "https://img.youtube.com/vi/osbYgBynCs4/maxresdefault.jpg", url: "https://www.youtube.com/embed/osbYgBynCs4", categoria: "ceremonia", vistas: 0 },
+                        { titulo: "GRADOS BOGOTÁ 17/04/2026 7:00 AM", thumb: "https://img.youtube.com/vi/jWGY9lGQ4Uc/maxresdefault.jpg", url: "https://www.youtube.com/embed/jWGY9lGQ4Uc", categoria: "ceremonia", vistas: 0 },
+                        { titulo: "GRADOS BOGOTÁ 17/04/2026 12:30 PM", thumb: "https://img.youtube.com/vi/6AOBsPOuovQ/maxresdefault.jpg", url: "https://www.youtube.com/embed/6AOBsPOuovQ", categoria: "ceremonia", vistas: 0 },
+                        { titulo: "GRADOS BOGOTÁ 04/03/2024 7:00 AM", thumb: "https://img.youtube.com/vi/12SlFTXScQc/maxresdefault.jpg", url: "https://www.youtube.com/embed/12SlFTXScQc", categoria: "ceremonia", vistas: 0 },
+                        { titulo: "GRADOS BOGOTÁ 04/03/2024 1:00 PM", thumb: "https://img.youtube.com/vi/pJq692mc8hw/maxresdefault.jpg", url: "https://www.youtube.com/embed/pJq692mc8hw", categoria: "ceremonia", vistas: 0 },
+                        { titulo: "GRADOS BOGOTÁ 04/03/2024 5:00 PM", thumb: "https://img.youtube.com/vi/nHHNqEjMzSU/maxresdefault.jpg", url: "https://www.youtube.com/embed/nHHNqEjMzSU", categoria: "ceremonia", vistas: 0 },
+                        { titulo: "GRADOS BOGOTÁ 05/03/2024 8:00 AM", thumb: "https://img.youtube.com/vi/43C_jSIS4RU/maxresdefault.jpg", url: "https://www.youtube.com/embed/43C_jSIS4RU", categoria: "ceremonia", vistas: 0 },
+                        { titulo: "GRADOS BOGOTÁ 05/03/2024 11:00 AM", thumb: "https://img.youtube.com/vi/jl0WNQ3q18E/maxresdefault.jpg", url: "https://www.youtube.com/embed/jl0WNQ3q18E", categoria: "ceremonia", vistas: 0 },
+                        { titulo: "GRADOS BOGOTÁ 05/03/2024 4:00 PM", thumb: "https://img.youtube.com/vi/mJPqwXy8Euk/maxresdefault.jpg", url: "https://www.youtube.com/embed/mJPqwXy8Euk", categoria: "ceremonia", vistas: 0 }
+                        
+                    ]},
                     { nombre: "📍 Pereira", videos: [
-                        { titulo: "Graduación Pereira 2025-1", thumb: "URL_IMAGEN", url: "URL_VIDEO", vistas: 0 },
-                        { titulo: "Graduación Pereira 2025-2", thumb: "URL_IMAGEN", url: "URL_VIDEO", vistas: 0 }
+                        { titulo: "CEREMONIA DE GRADOS PEREIRA 13/04/2026 08:30 AM", thumb: "https://img.youtube.com/vi/Hz_P_LQ2h2o/maxresdefault.jpg", url: "https://www.youtube.com/embed/Hz_P_LQ2h2o", categoria: "ceremonia", vistas: 0 },
+                        { titulo: "CEREMONIA DE GRADOS PEREIRA 13/04/2026 10:00 AM", thumb: "https://img.youtube.com/vi/_q7yevYTxbE/maxresdefault.jpg", url: "https://www.youtube.com/embed/_q7yevYTxbE", categoria: "ceremonia", vistas: 0 },
+                        { titulo: "CEREMONIA DE GRADOS PEREIRA 13/04/2026 04:30 PM", thumb: "https://img.youtube.com/vi/GcSa2lpyIrc/maxresdefault.jpg", url: "https://www.youtube.com/embed/GcSa2lpyIrc", categoria: "ceremonia", vistas: 0 }
                     ]},
                     { nombre: "📍 Valledupar", videos: [
-                        { titulo: "Graduación Valledupar 2025-1", thumb: "URL_IMAGEN", url: "URL_VIDEO", vistas: 0 }
+                        { titulo: "CEREMONIA DE GRADOS VALLEDUPAR 23/04/2026 9:00 AM", thumb: "https://img.youtube.com/vi/nuIIACAviZI/mqdefault.jpg", url: "https://www.youtube.com/embed/nuIIACAviZI", categoria: "ceremonia", vistas: 0 },
+                        { titulo: "CEREMONIA DE GRADOS VALLEDUPAR 23/04/2026 2:00 PM", thumb: "https://img.youtube.com/vi/n8u62NhUOKA/mqdefault.jpg", url: "https://www.youtube.com/embed/n8u62NhUOKA", categoria: "ceremonia", vistas: 0 }
                     ]},
                     { nombre: "💻 Virtuales", videos: [
-                        { titulo: "Graduación Virtual 2025-1", thumb: "URL_IMAGEN", url: "URL_VIDEO", vistas: 0 }
+                        { titulo: "Graduación Virtual 2025-1", thumb: "URL_IMAGEN", url: "URL_VIDEO", categoria: "ceremonia", vistas: 0 }
                     ]}
                 ]
             },
@@ -320,10 +453,10 @@
                 descripcion: "Capacitaciones y programas de innovación",
                 subs: [
                     { nombre: "🔧 Capacitaciones Ceita", videos: [
-                        { titulo: "Ceita 2025-1", thumb: "URL_IMAGEN", url: "URL_VIDEO", vistas: 0 }
+                        { titulo: "Ceita 2025-1", thumb: "URL_IMAGEN", url: "URL_VIDEO", categoria: "webinar", vistas: 0 }
                     ]},
                     { nombre: "⚡ Parrilla 4.0", videos: [
-                        { titulo: "Parrilla 4.0 - Módulo 1", thumb: "URL_IMAGEN", url: "URL_VIDEO", vistas: 0 }
+                        { titulo: "Parrilla 4.0 - Módulo 1", thumb: "URL_IMAGEN", url: "URL_VIDEO", categoria: "tutorial", vistas: 0 }
                     ]}
                 ]
             },
@@ -332,10 +465,10 @@
                 descripcion: "Espacios virtuales y contenidos educativos",
                 subs: [
                     { nombre: "🕶️ Espacios Virtuales", videos: [
-                        { titulo: "Realidad Virtual - Introducción", thumb: "URL_IMAGEN", url: "URL_VIDEO", vistas: 0 }
+                        { titulo: "Realidad Virtual - Introducción", thumb: "URL_IMAGEN", url: "URL_VIDEO", categoria: "documental", vistas: 0 }
                     ]},
                     { nombre: "📚 Contenidos Educativos", videos: [
-                        { titulo: "Contenido 360 - Clase 1", thumb: "URL_IMAGEN", url: "URL_VIDEO", vistas: 0 }
+                        { titulo: "Contenido 360 - Clase 1", thumb: "URL_IMAGEN", url: "URL_VIDEO", categoria: "tutorial", vistas: 0 }
                     ]}
                 ]
             },
@@ -344,10 +477,10 @@
                 descripcion: "Programas de bienestar y permanencia",
                 subs: [
                     { nombre: "❤️ Bienestar", videos: [
-                        { titulo: "Salud Mental - Taller 1", thumb: "URL_IMAGEN", url: "URL_VIDEO", vistas: 0 }
+                        { titulo: "Salud Mental - Taller 1", thumb: "URL_IMAGEN", url: "URL_VIDEO", categoria: "charla", vistas: 0 }
                     ]},
                     { nombre: "📖 Permanencia", videos: [
-                        { titulo: "Apoyo Estudiantil 2025", thumb: "URL_IMAGEN", url: "URL_VIDEO", vistas: 0 }
+                        { titulo: "Apoyo Estudiantil 2025", thumb: "URL_IMAGEN", url: "URL_VIDEO", categoria: "charla", vistas: 0 }
                     ]}
                 ]
             }
@@ -357,11 +490,9 @@
         document.getElementById('seccionTitulo').innerText = data.titulo;
         document.getElementById('seccionDescripcion').innerText = data.descripcion;
 
-        // Función para crear tarjeta con visitas reales
         function crearTarjetaVideo(video) {
             const visitas = obtenerVistas(video.titulo);
             const visitasTexto = visitas >= 1000 ? (visitas/1000).toFixed(1) + 'k' : visitas;
-            
             return `
                 <div class="video-card" onclick="reproducirVideo('${video.url}', '${video.titulo}')">
                     <img src="${video.thumb}" class="video-thumb">
@@ -373,45 +504,121 @@
             `;
         }
 
-        // Generar subsecciones con carruseles
-        const container = document.getElementById('subseccionesContainer');
-        container.innerHTML = data.subs.map(sub => `
-            <div class="subsection">
-                <h3 class="subsection-title">${sub.nombre}</h3>
-                <div class="carousel-container">
-                    <div class="carousel-track">
-                        ${sub.videos.map(v => crearTarjetaVideo(v)).join('')}
-                    </div>
-                    <button class="carousel-btn left">❮</button>
-                    <button class="carousel-btn right">❯</button>
-                </div>
-            </div>
-        `).join('');
+        // Filtro por categorias
+        let filtroActivo = 'todos';
 
-        // Inicializar los botones de cada carrusel
+        function actualizarOpcionesFiltro() {
+            const container = document.getElementById('dropdownFiltroContent');
+            if (!container) return;
+            
+            container.innerHTML = CATEGORIAS.map(cat => `
+                <button class="filtro-option ${filtroActivo === cat.id ? 'active' : ''}" data-filtro="${cat.id}">
+                    ${cat.icono} ${cat.nombre}
+                </button>
+            `).join('');
+            
+            // Actualizar texto del botón
+            const btnTexto = document.getElementById('dropdownFiltroBtn');
+            const categoriaSeleccionada = CATEGORIAS.find(cat => cat.id === filtroActivo);
+            if (btnTexto && categoriaSeleccionada) {
+                btnTexto.innerHTML = `${categoriaSeleccionada.icono} ${categoriaSeleccionada.nombre} <span class="dropdown-arrow">▼</span>`;
+            }
+            
+            document.querySelectorAll('.filtro-option').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    filtroActivo = btn.getAttribute('data-filtro');
+                    actualizarOpcionesFiltro();
+                    renderizarPorCategoria();
+                    document.getElementById('dropdownFiltroContent').classList.remove('show');
+                });
+            });
+        }
+
+        function renderizarPorCategoria() {
+            const container = document.getElementById('subseccionesContainer');
+            
+            // Recopilar todos los videos
+            let todosLosVideos = [];
+            data.subs.forEach(sub => {
+                sub.videos.forEach(video => {
+                    todosLosVideos.push({
+                        ...video,
+                        subseccion: sub.nombre
+                    });
+                });
+            });
+            
+            // Filtrar por categoría
+            if (filtroActivo !== 'todos') {
+                todosLosVideos = todosLosVideos.filter(video => video.categoria === filtroActivo);
+            }
+            
+            // Agrupar por subsección
+            const videosPorSubseccion = {};
+            todosLosVideos.forEach(video => {
+                if (!videosPorSubseccion[video.subseccion]) {
+                    videosPorSubseccion[video.subseccion] = [];
+                }
+                videosPorSubseccion[video.subseccion].push(video);
+            });
+            
+            // Mostrar resultados o mensaje vacío
+            if (Object.keys(videosPorSubseccion).length === 0) {
+                container.innerHTML = `<div class="sin-resultados">
+                    <h3>🎬 No hay videos en esta categoría</h3>
+                    <p>Próximamente agregaremos más contenido.</p>
+                </div>`;
+                return;
+            }
+            
+            // Renderizar
+            container.innerHTML = Object.keys(videosPorSubseccion).map(subNombre => `
+                <div class="subsection">
+                    <h3 class="subsection-title">${subNombre}</h3>
+                    <div class="carousel-container">
+                        <div class="carousel-track">
+                            ${videosPorSubseccion[subNombre].map(v => crearTarjetaVideo(v)).join('')}
+                        </div>
+                        <button class="carousel-btn left">❮</button>
+                        <button class="carousel-btn right">❯</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            inicializarCarruseles();
+            setTimeout(actualizarTodasLasVistas, 100);
+        }
+
+        // Toggle del dropdown
+        document.getElementById('dropdownFiltroBtn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.getElementById('dropdownFiltroContent').classList.toggle('show');
+        });
+
+        document.addEventListener('click', () => {
+            document.getElementById('dropdownFiltroContent').classList.remove('show');
+        });
+
         function inicializarCarruseles() {
             document.querySelectorAll('.carousel-container').forEach(container => {
                 const leftBtn = container.querySelector('.carousel-btn.left');
                 const rightBtn = container.querySelector('.carousel-btn.right');
                 const track = container.querySelector('.carousel-track');
-                
                 if (leftBtn && rightBtn && track) {
-                    // Eliminar eventos anteriores
                     const newLeft = leftBtn.cloneNode(true);
                     const newRight = rightBtn.cloneNode(true);
                     leftBtn.parentNode.replaceChild(newLeft, leftBtn);
                     rightBtn.parentNode.replaceChild(newRight, rightBtn);
-                    
                     newLeft.onclick = () => track.scrollBy({ left: -300, behavior: 'smooth' });
                     newRight.onclick = () => track.scrollBy({ left: 300, behavior: 'smooth' });
                 }
             });
         }
-        
-        inicializarCarruseles();
 
-        // Actualizar vistas después de cargar
-        setTimeout(actualizarTodasLasVistas, 500);
+        // Inicializar todo
+        actualizarOpcionesFiltro();
+        renderizarPorCategoria();
 
         // ========== HEADER FUNCIONAL ==========
         document.getElementById('navInicio').onclick = () => window.location.href = 'index.html';
@@ -429,7 +636,7 @@
             };
         }
 
-        // ========== BUSCADOR ==========
+        // Buscador
         const searchInput = document.getElementById('searchInput');
         const searchDropdown = document.getElementById('searchDropdown');
         if (searchInput) {
@@ -453,9 +660,7 @@
                 if (resultados.length > 0) {
                     searchDropdown.innerHTML = resultados.map(v => `
                         <div class="search-dropdown-item" onclick="reproducirVideo('${v.url}', '${v.titulo}')">
-                            <div style="padding: 10px;">
-                                <div style="font-weight:500;">${v.titulo}</div>
-                            </div>
+                            <div style="padding: 10px;"><div style="font-weight:500;">${v.titulo}</div></div>
                         </div>
                     `).join('');
                     searchDropdown.style.display = 'block';
@@ -470,7 +675,7 @@
             });
         }
 
-        // ========== MODO OSCURO ==========
+        // Modo Oscuro 
         const themeToggle = document.getElementById('themeToggle');
         if (localStorage.getItem('darkMode') === 'true') {
             document.body.classList.add('dark-mode');
@@ -485,7 +690,6 @@
             };
         }
 
-        // Logo clickeable
         document.getElementById('logoLink').onclick = () => window.location.href = 'index.html';
     </script>
 </body>

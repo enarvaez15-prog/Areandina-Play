@@ -1,6 +1,4 @@
-// ========== DATOS DE EJEMPLO ==========
-
-// Facultades (primer carrusel - abre página externa)
+// Facultades 
 const facultades = [
     { nombre: "Ingeniería y Ciencias Básicas", thumb: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=300&h=150&fit=crop", urlExterna: "https://campusvirtual.areandina.edu.co/" },
     { nombre: "Derecho y Ciencias Políticas", thumb: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=300&h=150&fit=crop", urlExterna: "https://campusvirtual.areandina.edu.co/" },
@@ -18,7 +16,7 @@ const videosPresentacion = [
     { titulo: "Presentación - Psicología", thumb: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=200&fit=crop", duracion: "4:05", urlVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ" }
 ];
 
-// Videos por sección (con preview)
+// Videos por sección 
 const videosPorSeccion = {
     vicerrectoria: [
         { titulo: "Nuevos programas académicos 2025", thumb: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&h=200&fit=crop", preview: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&h=200&fit=crop&blur=100", urlVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
@@ -67,7 +65,7 @@ const videosPorSeccion = {
     ]
 };
 
-// ========== FUNCIONES DE RENDERIZADO ==========
+// Funciones de renderizado
 
 function crearTarjetaFacultad(facultad) {
     return `
@@ -107,7 +105,7 @@ function crearTarjetaVideo(video) {
     
     let visitas = visitasMap[video.titulo];
     
-    // Si no existe, inicializar en 0
+    
     if (visitas === undefined) {
         visitas = 0;
         visitasMap[video.titulo] = 0;
@@ -133,7 +131,7 @@ function crearTarjetaVideo(video) {
     `;
 }
 
-// ========== REPRODUCTOR DE VIDEO MEJORADO ==========
+// Reproductor de video 
 let currentVideoUrl = '';
 
 function reproducirVideo(url, titulo = 'Video') {
@@ -213,7 +211,7 @@ function configurarModal() {
     if (modal) modal.onclick = (e) => { if (e.target === modal) cerrarModal(); };
 }
 
-// ========== CARGAR CARRUSELES ==========
+// Cargar carruseles
 function cargarCarruseles() {
     const facultadesTrack = document.getElementById('facultadesTrack');
     const presentacionTrack = document.getElementById('presentacionTrack');
@@ -234,7 +232,7 @@ function cargarCarruseles() {
     if (talentoTrack) talentoTrack.innerHTML = videosPorSeccion.talento.map(crearTarjetaVideo).join('');
 }
 
-// ========== BOTONES DE CARRUSEL ==========
+// Botones carrusel
 function agregarBotonesCarrusel() {
     document.querySelectorAll('.carousel-container').forEach(container => {
         const leftBtn = document.createElement('button');
@@ -259,7 +257,7 @@ function agregarBotonesCarrusel() {
     });
 }
 
-// ========== HERO CARRUSEL ==========
+// Hero carrusel
 let currentSlide = 0;
 const slidesContainer = document.getElementById('heroSlides');
 let autoInterval;
@@ -311,7 +309,7 @@ function resetAutoSlide() {
     startAutoSlide();
 }
 
-// ========== FILTROS DE BÚSQUEDA ==========
+// Filtros de busqueda 
 function configurarFiltrosBusqueda() {
     const buscarBtn = document.getElementById('buscarEstudiosBtn');
     if (!buscarBtn) return;
@@ -349,7 +347,6 @@ function configurarFiltrosBusqueda() {
     });
 }
 
-// ========== INICIALIZACIÓN ==========
 function init() {
     cargarCarruseles();
     agregarBotonesCarrusel();
@@ -387,7 +384,7 @@ function init() {
 
 document.addEventListener('DOMContentLoaded', init);
 
-// ========== CONFIGURAR MODAL CORRECTAMENTE ==========
+// Confugurar modal 
 function configurarModalCorrecto() {
     const modal = document.getElementById('videoModal');
     const closeBtn = document.getElementById('closeModal');
@@ -431,8 +428,7 @@ function configurarModalCorrecto() {
 
 document.addEventListener('DOMContentLoaded', configurarModalCorrecto);
 
-// ========== REDIRECCIONES PARA BOTONES DEL HEADER ==========
-// ========== REDIRECCIONES PARA BOTONES DEL HEADER ==========
+// Redireccionamiento para botones del header 
 document.addEventListener('DOMContentLoaded', function() {
     const institucionBtn = document.querySelector('.nav-link.active');
     if (institucionBtn && institucionBtn.innerText !== 'INICIO') {
@@ -476,7 +472,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 500);
 });
 
-// ========== FORZAR QUE LAS FACULTADES SOLO VAYAN A CANAL.HTML ==========
+
 setTimeout(function() {
     const facultadCards = document.querySelectorAll('.facultad-card');
     facultadCards.forEach(function(card) {
@@ -499,7 +495,7 @@ setTimeout(function() {
     });
 }, 500);
 
-// ========== NAVEGACIÓN SUAVE ENTRE PÁGINAS ==========
+// Navegacion suave entre paginas
 document.addEventListener('click', function(e) {
     let link = e.target.closest('a');
     if (!link) return;
@@ -593,7 +589,7 @@ window.addEventListener('popstate', function() {
     cargarPagina(window.location.href);
 });
 
-// ========== BARRA DE CARGA PROFESIONAL ==========
+// Barra de carga
 function crearBarraCarga() {
     if (!document.getElementById('cargaBarra')) {
         const barraHTML = `<div id="cargaBarra" style="position: fixed; top: 0; left: 0; width: 0%; height: 4px; background: linear-gradient(90deg, #7fb536, #e6007e, #f59c2f); z-index: 10000; transition: width 0.3s ease; box-shadow: 0 0 10px rgba(230,0,126,0.5);"></div>`;
@@ -633,7 +629,7 @@ document.addEventListener('click', function(e) {
 window.addEventListener('load', function() { completarCarga(); });
 window.addEventListener('pageshow', function() { completarCarga(); });
 
-// ========== VOLVER AL INICIO CON ANIMACIÓN ==========
+// Volver al inicio con animacion
 function irAlInicioSuave() {
     const duracion = 600;
     const inicio = window.pageYOffset;
@@ -653,7 +649,7 @@ function irAlInicioSuave() {
 window.onload = function() { setTimeout(() => { irAlInicioSuave(); }, 50); };
 window.addEventListener('pageshow', function() { setTimeout(() => { irAlInicioSuave(); }, 50); });
 
-// ========== ARREGLAR TODOS LOS BOTONES DEL HEADER ==========
+// Agragar botones al header
 document.addEventListener('DOMContentLoaded', function() {
     const todosLosBotones = document.querySelectorAll('.nav-link');
     
@@ -701,7 +697,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// ========== MASCOTA INTERACTIVA ==========
+// Mascota interactiva
 function iniciarMascota() {
     const mascota = document.getElementById('mascota');
     const mensaje = document.getElementById('mensajeMascota');
@@ -738,7 +734,7 @@ if (document.readyState === 'loading') {
     iniciarMascota();
 }
 
-// ========== RADIO MINI PLAYER COMPACTO ==========
+
 function iniciarRadioMini() {
     const playBtn = document.getElementById('playPauseMiniBtn');
     const audio = document.getElementById('radioMiniAudio');
@@ -812,7 +808,7 @@ if (document.readyState === 'loading') {
     iniciarRadioMini();
 }
 
-// ========== AGREGAR NUEVAS SECCIONES AL CARRUSEL ==========
+// Nuevas secciones carrusel
 function cargarNuevasSecciones() {
     const graduacionesTrack = document.getElementById('graduacionesTrack');
     const innovacionTrack = document.getElementById('innovacionTrack');
@@ -821,17 +817,23 @@ function cargarNuevasSecciones() {
     
     const videosPreview = {
         graduaciones: [
-            { titulo: "Graduación Bogotá", thumb: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=200&fit=crop", preview: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=200&fit=crop&blur=100", urlVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
-            { titulo: "Graduación Pereira", thumb: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&h=200&fit=crop", preview: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&h=200&fit=crop&blur=100", urlVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ" }
+            { titulo: "GRADOS BOGOTA ", thumb: "https://img.youtube.com/vi/12SlFTXScQc/maxresdefault.jpg", preview: "https://img.youtube.com/vi/12SlFTXScQc/maxresdefault.jpg?w=400&h=200&fit=crop&blur=100", urlVideo: "https://www.youtube.com/embed/12SlFTXScQc" , vistas: 0},
+            { titulo: "GRADOS PEREIRA 04/03/2024 7:00 AM", thumb: "https://img.youtube.com/vi/KAdI2PdNdG0/maxresdefault.jpg", url: "https://www.youtube.com/embed/12SlFTXScQc", vistas: 0 },
+            { titulo: "GRADOS PEREIRA 07/03/2024 03:20 PM", thumb: "https://img.youtube.com/vi/KAdI2PdNdG0/maxresdefault.jpg", url: "https://www.youtube.com/embed/KAdI2PdNdG0", vistas: 0 },
+            
         ],
         innovacion: [
-            { titulo: "Capacitación Ceita", thumb: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=200&fit=crop", preview: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=200&fit=crop&blur=100", urlVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ" }
+            { titulo: "Capacitación Ceita 1 ", thumb: "https://img.youtube.com/vi/Ar42N3JKTpU/maxresdefault.jpg", preview: "https://img.youtube.com/vi/Ar42N3JKTpU/maxresdefault.jpg?w=400&h=200&fit=crop&blur=100", urlVideo: "https://www.youtube.com/embed/Ar42N3JKTpU" , vistas: 0},
+             { titulo: "Capacitación Ceita 2", thumb: "https://img.youtube.com/vi/JRv_2TJKWNo/maxresdefault.jpg", preview: "https://img.youtube.com/vi/JRv_2TJKWNo/maxresdefault.jpg?w=400&h=200&fit=crop&blur=100", urlVideo: "https://www.youtube.com/embed/JRv_2TJKWNo" , vistas: 0},
+              { titulo: "Capacitación Ceita 3", thumb: "https://img.youtube.com/vi/Jp4PXRk76i8/maxresdefault.jpg", preview: "https://img.youtube.com/vi/Jp4PXRk76i8/maxresdefault.jpg?w=400&h=200&fit=crop&blur=100", urlVideo: "https://www.youtube.com/embed/Jp4PXRk76i8" , vistas: 0},
+               { titulo: "Capacitación Ceita 4", thumb: "https://img.youtube.com/vi/iHer_gD1sJQ/maxresdefault.jpg", preview: "https://img.youtube.com/vi/iHer_gD1sJQ/maxresdefault.jpg?w=400&h=200&fit=crop&blur=100", urlVideo: "https://www.youtube.com/embed/iHer_gD1sJQ" , vistas: 0},
+                { titulo: "Capacitación Ceita 5", thumb: "https://img.youtube.com/vi/5mpsIj1gc18/maxresdefault.jpg", preview: "https://img.youtube.com/vi/5mpsIj1gc18/maxresdefault.jpg?w=400&h=200&fit=crop&blur=100", urlVideo: "https://www.youtube.com/embed/5mpsIj1gc18" , vistas: 0 }
         ],
         realidades: [
-            { titulo: "Realidad Virtual", thumb: "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=400&h=200&fit=crop", preview: "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=400&h=200&fit=crop&blur=100", urlVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ" }
+            { titulo: "RECORRIDO VR ", thumb: "https://img.youtube.com/vi/DkiDGwy8vGM/maxresdefault.jpg", preview: "https://img.youtube.com/vi/DkiDGwy8vGM/maxresdefault.jpg?w=400&h=200&fit=crop&blur=100", urlVideo: "https://www.youtube.com/embed/DkiDGwy8vGM" , vistas: 0 }
         ],
         bienestar: [
-            { titulo: "Salud Mental", thumb: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=200&fit=crop", preview: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=200&fit=crop&blur=100", urlVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ" }
+            { titulo: "BIENESTAR ", thumb: "https://img.youtube.com/vi/nOJ8n0_IXus/maxresdefault.jpg", preview: "https://img.youtube.com/vi/nOJ8n0_IXus/maxresdefault.jpg?w=400&h=200&fit=crop&blur=100", urlVideo: "https://www.youtube.com/embed/nOJ8n0_IXus" , vistas: 0 }
         ]
     };
     
@@ -856,7 +858,7 @@ function cargarNuevasSecciones() {
 
 setTimeout(cargarNuevasSecciones, 500);
 
-// ========== BUSCADOR ÚNICO Y CORREGIDO ==========
+// Buscador 
 function iniciarBuscadorUnico() {
     const searchInput = document.getElementById('searchInput');
     const searchDropdown = document.getElementById('searchDropdown');
@@ -949,7 +951,7 @@ if (document.readyState === 'loading') {
     iniciarBuscadorUnico();
 }
 
-// ========== HEADER FUNCIONAL ==========
+// Header funcional
 function headerFuncional() {
     const navLinks = document.querySelectorAll('.nav-menu .nav-link');
     
@@ -1006,7 +1008,7 @@ function headerFuncional() {
 }
 
 headerFuncional();
-// ========== MODO OSCURO ==========
+// Modo oscuro 
 function iniciarModoOscuro() {
     const themeToggle = document.getElementById('themeToggle');
     
@@ -1036,18 +1038,17 @@ function iniciarModoOscuro() {
         // Cambiar icono
         this.innerHTML = isDark ? '☀️' : '🌙';
         
-        // Guardar preferencia
+
         localStorage.setItem('darkMode', isDark);
     };
 }
 
-// Ejecutar cuando el DOM esté listo
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', iniciarModoOscuro);
 } else {
     iniciarModoOscuro();
 }
-// ========== CONTADOR DE VISITAS POR VIDEO ==========
+// Contador de vistas por video
 function registrarVisita(tituloVideo) {
     console.log('Registrando visita para:', tituloVideo);
     
@@ -1070,22 +1071,21 @@ function registrarVisita(tituloVideo) {
     
     console.log(`📊 "${tituloVideo}" ahora tiene ${nuevaCantidad} visitas`);
     
-    // Actualizar en pantalla
+
     const visitasTexto = nuevaCantidad >= 1000 ? (nuevaCantidad/1000).toFixed(1) + 'k' : nuevaCantidad;
     
-    // Buscar por el título
+    
     document.querySelectorAll('.video-card').forEach(tarjeta => {
         const tituloElem = tarjeta.querySelector('.video-title');
         if (tituloElem && tituloElem.innerText === tituloVideo) {
             const metaElem = tarjeta.querySelector('.video-meta');
             if (metaElem) {
-                metaElem.innerHTML = `📺 ${visitasTexto} vistas`;
+                metaElem.innerHTML = `📺 ${visitasTexto} vistas`; 
             }
         }
     });
 }
 
-// Modificar la función reproducirVideo original
 function envolverReproducirVideo() {
     if (typeof window.reproducirVideo === 'function') {
         const original = window.reproducirVideo;
@@ -1096,9 +1096,9 @@ function envolverReproducirVideo() {
     }
 }
 
-// Ejecutar después de que las funciones estén cargadas
 setTimeout(envolverReproducirVideo, 500);
-// Forzar que al cargar la página se muestren las vistas guardadas
+
+
 function actualizarTodasLasVistas() {
     const visitasGuardadas = localStorage.getItem('visitasVideo');
     if (!visitasGuardadas) return;
@@ -1122,10 +1122,8 @@ function actualizarTodasLasVistas() {
     } catch(e) {}
 }
 
-// Ejecutar después de cargar los carruseles
+
 setTimeout(actualizarTodasLasVistas, 500);
 
 
-
-
-
+ 
