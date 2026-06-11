@@ -1,10 +1,13 @@
 // Facultades 
+// Facultades (primer carrusel - abre página externa)
 const facultades = [
-    { nombre: "Ingeniería y Ciencias Básicas", thumb: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=300&h=150&fit=crop", urlExterna: "https://campusvirtual.areandina.edu.co/" },
-    { nombre: "Derecho y Ciencias Políticas", thumb: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=300&h=150&fit=crop", urlExterna: "https://campusvirtual.areandina.edu.co/" },
-    { nombre: "Ciencias Económicas, Administrativas y Contables", thumb: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=300&h=150&fit=crop", urlExterna: "https://campusvirtual.areandina.edu.co/" },
-    { nombre: "Ciencias de la Comunicación", thumb: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=300&h=150&fit=crop", urlExterna: "https://campusvirtual.areandina.edu.co/" },
-    { nombre: "Psicología", thumb: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&h=150&fit=crop", urlExterna: "https://campusvirtual.areandina.edu.co/" }
+    { nombre: "Ciencias Administrativas, Económicas y Financieras", thumb: "imagenes/cafe.png", urlExterna: "https://campusvirtual.areandina.edu.co/" },
+    { nombre: "Ciencias de la Salud y del Deporte", thumb: "imagenes/CIENCIAS DE LA SALUD Y DEL DEPORTE.png", urlExterna: "https://campusvirtual.areandina.edu.co/" },
+    { nombre: "Diseño, Comunicación y Bellas Artes", thumb: "imagenes/COMUNICACIÓN Y BELLAS ARTES.png", urlExterna: "https://campusvirtual.areandina.edu.co/" },
+    { nombre: "Derecho", thumb: "imagenes/DERECHO.png", urlExterna: "https://campusvirtual.areandina.edu.co/" },
+    { nombre: "Educación", thumb: "imagenes/EDUCACIÓN.png", urlExterna: "https://campusvirtual.areandina.edu.co/" },
+    { nombre: "Ciencias Sociales y Humanas", thumb: "imagenes/CIENCIAS SOCIALES Y HUMANAS.png", urlExterna: "https://campusvirtual.areandina.edu.co/" },
+    { nombre: "Ingeniería y Ciencias Básicas", thumb: "imagenes/ingenieriaa y ciencias básicas.png", urlExterna: "https://campusvirtual.areandina.edu.co/" }
 ];
 
 // Videos de presentación por facultad
