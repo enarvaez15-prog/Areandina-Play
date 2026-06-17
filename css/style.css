@@ -722,7 +722,6 @@ p, span, li, a:not(.nav-link),
     color: white;
 }
 
-/* Footer rediseñado */
 .footer-moderno {
     background: #0a0a0a;
     color: #fff;
@@ -1662,7 +1661,6 @@ body.dark-mode .video-canal-card:hover::after {
     }
 }
 
-/* Flotación con mayor velocidad */
 @keyframes float {
     0% {
         transform: translateY(0px);
@@ -1683,7 +1681,6 @@ body.dark-mode .video-canal-card:hover::after {
     animation: none;
 }
 
-/* Efecto de partículas */
 .banner-3d::after {
     content: '';
     position: absolute;
@@ -1704,12 +1701,6 @@ body.dark-mode .video-canal-card:hover::after {
 
 
 
-
-
-
-
-
-
 .video-card .video-thumb,
 .video-card-inline .video-thumb,
 .video-canal-card .video-canal-thumb {
@@ -1718,7 +1709,7 @@ body.dark-mode .video-canal-card:hover::after {
     object-fit: cover !important;
 }
 
-/* ===== FORZAR TAMAÑO UNIFORME DE TARJETAS ===== */
+/* Forzar el tamaño de las tarjetas (Facultades) */
 .video-card,
 .video-card-inline,
 .video-canal-card {
@@ -1742,15 +1733,14 @@ body.dark-mode .video-canal-card:hover::after {
 
 
 
-/* ===== TARJETAS DE FACULTADES MÁS GRANDES ===== */
 .facultad-card {
-    min-width: 280px !important;  /* Antes 200px, ahora más ancho */
+    min-width: 280px !important;  
     width: 280px !important;
 }
 
 .facultad-thumb {
     width: 100%;
-    height: 180px !important;  /* Antes 120px, ahora más alto */
+    height: 180px !important;  
     object-fit: cover;
 }
 

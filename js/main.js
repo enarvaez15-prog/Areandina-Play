@@ -1,5 +1,4 @@
 // Facultades 
-// Facultades (primer carrusel - abre página externa)
 const facultades = [
     { nombre: "Ciencias Administrativas, Económicas y Financieras", thumb: "imagenes/cafe.png", urlExterna: "https://campusvirtual.areandina.edu.co/" },
     { nombre: "Ciencias de la Salud y del Deporte", thumb: "imagenes/CIENCIAS DE LA SALUD Y DEL DEPORTE.png", urlExterna: "https://campusvirtual.areandina.edu.co/" },
@@ -94,7 +93,6 @@ function crearTarjetaPresentacion(video) {
 function crearTarjetaVideo(video) {
     if (!video || !video.titulo) return '';
     
-    // Obtener localStorage
     let visitasGuardadas = localStorage.getItem('visitasVideo');
     let visitasMap = {};
     
@@ -234,8 +232,6 @@ function cargarCarruseles() {
     if (calidadTrack) calidadTrack.innerHTML = videosPorSeccion.calidad.map(crearTarjetaVideo).join('');
     if (talentoTrack) talentoTrack.innerHTML = videosPorSeccion.talento.map(crearTarjetaVideo).join('');
 }
-
-// Botones carrusel
 function agregarBotonesCarrusel() {
     document.querySelectorAll('.carousel-container').forEach(container => {
         const leftBtn = document.createElement('button');
@@ -260,7 +256,7 @@ function agregarBotonesCarrusel() {
     });
 }
 
-// Hero carrusel
+
 let currentSlide = 0;
 const slidesContainer = document.getElementById('heroSlides');
 let autoInterval;
@@ -312,7 +308,6 @@ function resetAutoSlide() {
     startAutoSlide();
 }
 
-// Filtros de busqueda 
 function configurarFiltrosBusqueda() {
     const buscarBtn = document.getElementById('buscarEstudiosBtn');
     if (!buscarBtn) return;
@@ -387,7 +382,6 @@ function init() {
 
 document.addEventListener('DOMContentLoaded', init);
 
-// Confugurar modal 
 function configurarModalCorrecto() {
     const modal = document.getElementById('videoModal');
     const closeBtn = document.getElementById('closeModal');
@@ -431,7 +425,6 @@ function configurarModalCorrecto() {
 
 document.addEventListener('DOMContentLoaded', configurarModalCorrecto);
 
-// Redireccionamiento para botones del header 
 document.addEventListener('DOMContentLoaded', function() {
     const institucionBtn = document.querySelector('.nav-link.active');
     if (institucionBtn && institucionBtn.innerText !== 'INICIO') {
@@ -632,7 +625,6 @@ document.addEventListener('click', function(e) {
 window.addEventListener('load', function() { completarCarga(); });
 window.addEventListener('pageshow', function() { completarCarga(); });
 
-// Volver al inicio con animacion
 function irAlInicioSuave() {
     const duracion = 600;
     const inicio = window.pageYOffset;
@@ -652,7 +644,6 @@ function irAlInicioSuave() {
 window.onload = function() { setTimeout(() => { irAlInicioSuave(); }, 50); };
 window.addEventListener('pageshow', function() { setTimeout(() => { irAlInicioSuave(); }, 50); });
 
-// Agragar botones al header
 document.addEventListener('DOMContentLoaded', function() {
     const todosLosBotones = document.querySelectorAll('.nav-link');
     
@@ -1011,7 +1002,6 @@ function headerFuncional() {
 }
 
 headerFuncional();
-// Modo oscuro 
 function iniciarModoOscuro() {
     const themeToggle = document.getElementById('themeToggle');
     
@@ -1020,7 +1010,6 @@ function iniciarModoOscuro() {
         return;
     }
     
-    // Cargar preferencia guardada
     const modoOscuro = localStorage.getItem('darkMode') === 'true';
     
     if (modoOscuro) {
@@ -1028,17 +1017,17 @@ function iniciarModoOscuro() {
         themeToggle.innerHTML = '☀️';
     }
     
-    // Evento del botón con animación
+  
     themeToggle.onclick = function() {
         const isDark = document.body.classList.toggle('dark-mode');
         
-        // Animación del icono
+       
         this.style.transform = 'rotate(360deg)';
         setTimeout(() => { 
             if (themeToggle) themeToggle.style.transform = 'rotate(0deg)'; 
         }, 300);
         
-        // Cambiar icono
+
         this.innerHTML = isDark ? '☀️' : '🌙';
         
 
@@ -1055,7 +1044,6 @@ if (document.readyState === 'loading') {
 function registrarVisita(tituloVideo) {
     console.log('Registrando visita para:', tituloVideo);
     
-    // Obtener localStorage
     let visitasGuardadas = localStorage.getItem('visitasVideo');
     let visitasMap = {};
     
